@@ -1,12 +1,12 @@
 ✔ use pagination for products @done(25-12-30 17:30)
 ✔ don't let the user select "all categories" in product edit @done(25-12-30 19:27)
 ✔ use arktype for product edit validation @done(25-12-30 19:16)
-☐ implement category page
+✔ implement category page @done(25-12-30 21:44)
 ✔ implement new product form - modularize the existing edit product form for this purpose @done(25-12-30 19:25)
-☐ implement new category / edit category
+✔ implement new category / edit category @done(25-12-30 21:44)
 ☐ re-implement sorting for products
 ✔ product search isnt considering category name @done(25-12-30 19:25)
 ☐ manually adjust the tanstack hooks to be less complicated
 ☐ move the arktype schemas to a shared common folder?
-☐ something went wrong when edit category then delete it
+✔ something went wrong when edit category then delete it @done(25-12-30 21:44)
 ☐ add some content on the homepage
