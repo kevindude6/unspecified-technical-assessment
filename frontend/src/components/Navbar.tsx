@@ -16,7 +16,9 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				<div className="flex h-16 items-center justify-between">
 					<div className="flex items-center">
-						<h1 className="text-xl font-bold">Vynyl App</h1>
+						<Button variant={"link"} onClick={() => onPageChange("Home")}>
+							<h1 className="text-xl font-bold">Product App</h1>
+						</Button>
 					</div>
 					<div className="flex space-x-4">
 						{pages.map((page) => (
