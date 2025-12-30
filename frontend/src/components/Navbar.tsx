@@ -6,7 +6,7 @@ interface NavbarProps {
 	onPageChange: (page: string) => void;
 }
 
-const pages = ["Home", "Products", "Categories", "About"];
+const pages = ["Home", "Products", "Categories"];
 
 export function Navbar({ currentPage, onPageChange }: NavbarProps) {
 	return (
