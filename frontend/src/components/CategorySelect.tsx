@@ -15,6 +15,7 @@ interface CategorySelectProps {
 	label?: string;
 	disabled?: boolean;
 	className?: string;
+	allowAll?: boolean; // New prop to control whether "All Categories" option is shown
 }
 
 export function CategorySelect({
@@ -24,6 +25,7 @@ export function CategorySelect({
 	disabled = false,
 	label = "",
 	className,
+	allowAll = true, // Default to true for backward compatibility
 }: CategorySelectProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const { data, isLoading, error } = useCategories();
@@ -67,7 +69,7 @@ export function CategorySelect({
 					</SelectValue>
 				</SelectTrigger>
 				<SelectContent>
-					<SelectItem value="all">All Categories</SelectItem>
+					{allowAll && <SelectItem value="all">All Categories</SelectItem>}
 					{sortedCategories.map((category) => (
 						<SelectItem key={category.id} value={category.id.toString()}>
 							{category.name}

@@ -236,6 +236,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 							onChange={(categoryId) => setValue("categoryId", categoryId || 0)}
 							placeholder="Select a category"
 							className="w-full"
+							allowAll={false}
 						/>
 						{errors.categoryId && (
 							<p className="text-sm text-red-600">
