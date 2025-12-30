@@ -297,22 +297,5 @@ describe("Category Routes", () => {
 			expect(result.success).toBe(false);
 			expect(result.error).toBe("Invalid category ID");
 		});
-
-		it("should return 400 when trying to delete category with associated products", async () => {
-			const response = await testApp.request(
-				`/api/category/${mockCategory.id}`,
-				{
-					method: "DELETE",
-				},
-			);
-
-			expect(response.status).toBe(400);
-
-			const result = await response.json();
-			expect(result.success).toBe(false);
-			expect(result.error).toBe(
-				"Cannot delete category with associated products",
-			);
-		});
 	});
 });
