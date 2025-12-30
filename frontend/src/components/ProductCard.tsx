@@ -31,7 +31,14 @@ export function ProductCard({ product }: ProductCardProps) {
 
 			<CardFooter className="flex justify-between items-center">
 				<span className="text-lg font-bold">${product.price.toFixed(2)}</span>
-				<Button size="sm">Add to Cart</Button>
+				<div className="flex gap-2">
+					<Button size="sm" variant="outline">
+						Edit
+					</Button>
+					<Button size="sm" variant="destructive">
+						Delete
+					</Button>
+				</div>
 			</CardFooter>
 		</Card>
 	);
