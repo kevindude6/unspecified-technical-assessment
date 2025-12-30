@@ -7,6 +7,8 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useDeleteProduct } from "@/api/product-hooks";
+import { toast } from "sonner";
 import type { Product } from "@/lib/models/product";
 
 interface ProductCardProps {
@@ -14,6 +16,21 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+	const { mutate: deleteProduct, isPending } = useDeleteProduct();
+
+	const handleDelete = () => {
+		if (window.confirm(`Are you sure you want to delete "${product.title}"?`)) {
+			deleteProduct(product.id, {
+				onSuccess: () => {
+					toast.success("Product deleted successfully");
+				},
+				onError: (error) => {
+					toast.error(`Failed to delete product: ${error.message}`);
+				},
+			});
+		}
+	};
+
 	return (
 		<Card className="h-full flex flex-col">
 			<CardHeader className="flex-1">
@@ -35,8 +52,13 @@ export function ProductCard({ product }: ProductCardProps) {
 					<Button size="sm" variant="outline">
 						Edit
 					</Button>
-					<Button size="sm" variant="destructive">
-						Delete
+					<Button
+						size="sm"
+						variant="destructive"
+						onClick={handleDelete}
+						disabled={isPending}
+					>
+						{isPending ? "Deleting..." : "Delete"}
 					</Button>
 				</div>
 			</CardFooter>
