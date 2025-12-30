@@ -1,10 +1,10 @@
 services:
-  postgres-dev:
+  postgres-test:
     image: postgres:18
-    container_name: app-postgres-deb
+    container_name: app-postgres-test
     restart: unless-stopped
     environment:
-      POSTGRES_DB: app_dev
+      POSTGRES_DB: app_test
       POSTGRES_USER: app_user
       POSTGRES_PASSWORD: app_password
     ports:
@@ -13,7 +13,7 @@ services:
       - postgres_data:/var/lib/postgresql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U app_user -d app_dev"]
+      test: ["CMD-SHELL", "pg_isready -U app_user -d app_test"]
       interval: 30s
       timeout: 10s
       retries: 5
