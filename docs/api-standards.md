@@ -13,4 +13,5 @@ or
   "error": string
 }
 ```
-**All APIs that consume json must be validated using arktype
+**All APIs that consume json must be validated using arktype**
+**All APIs that return data must return the data wrapped in a collection, even if it is a single piece of data**

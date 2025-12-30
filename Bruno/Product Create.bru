@@ -1,0 +1,22 @@
+meta {
+  name: Product Create
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{endpoint}}/api/product
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
