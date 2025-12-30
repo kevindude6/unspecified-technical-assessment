@@ -27,7 +27,7 @@ export function CategorySelect({
 	className,
 	allowAll = true, // Default to true for backward compatibility
 }: CategorySelectProps) {
-	const [isOpen, setIsOpen] = useState(false);
+	const [_isOpen, setIsOpen] = useState(false);
 	const { data, isLoading, error } = useCategories();
 
 	const handleSelect = (categoryId: string) => {

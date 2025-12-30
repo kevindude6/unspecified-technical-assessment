@@ -1,4 +1,4 @@
-import { type Category } from "../lib/models/category";
+import type { Category } from "../lib/models/category";
 
 interface CategoryDeleteModalProps {
 	category: Category | null;

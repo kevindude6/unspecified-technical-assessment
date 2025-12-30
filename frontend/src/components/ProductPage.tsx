@@ -4,12 +4,10 @@ import { ProductGrid } from "./ProductGrid";
 import { Pagination } from "./Pagination";
 import { ProductEditModal } from "./ProductEditModal";
 import { useProducts } from "../api/product-hooks";
-import { sampleProducts, sampleCategories } from "../lib/sample-data";
-import type { Product } from "../lib/models/product";
 
 export function ProductPage() {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [sortBy, setSortBy] = useState("name");
+	const [_sortBy, setSortBy] = useState("name");
 	const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false);

@@ -113,7 +113,7 @@ export function useDeleteCategory() {
 
 	return useMutation<Category, Error, number>({
 		mutationFn: deleteCategory,
-		onSuccess: (deletedCategory, id) => {
+		onSuccess: (_deletedCategory, id) => {
 			// Invalidate and refetch category lists
 			queryClient.invalidateQueries({ queryKey: categoryKeys.lists() });
 			// Remove the category from cache

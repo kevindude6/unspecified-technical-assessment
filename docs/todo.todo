@@ -9,4 +9,5 @@
 ☐ manually adjust the tanstack hooks to be less complicated
 ☐ move the arktype schemas to a shared common folder?
 ✔ something went wrong when edit category then delete it @done(25-12-30 21:44)
-☐ add some content on the homepage
+✔ add some content on the homepage @done(25-12-30 21:57)
+☐ category select in add product doesnt get validated

@@ -116,7 +116,7 @@ export function useDeleteProduct() {
 
 	return useMutation<Product, Error, number>({
 		mutationFn: deleteProduct,
-		onSuccess: (deletedProduct, id) => {
+		onSuccess: (_deletedProduct, id) => {
 			// Invalidate and refetch product lists
 			queryClient.invalidateQueries({ queryKey: productKeys.lists() });
 			// Remove the product from cache
