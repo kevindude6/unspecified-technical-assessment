@@ -8,3 +8,5 @@
 ✔ product search isnt considering category name @done(25-12-30 19:25)
 ☐ manually adjust the tanstack hooks to be less complicated
 ☐ move the arktype schemas to a shared common folder?
+☐ something went wrong when edit category then delete it
+☐ add some content on the homepage

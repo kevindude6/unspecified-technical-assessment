@@ -209,6 +209,7 @@ app.delete("/:id", async (c) => {
 		}
 
 		// Check if category has associated products
+		/*
 		const productCount = await prisma.product.count({
 			where: { categoryId: id },
 		});
@@ -222,6 +223,7 @@ app.delete("/:id", async (c) => {
 				400,
 			);
 		}
+			*/
 
 		// Delete the category
 		await prisma.category.delete({
