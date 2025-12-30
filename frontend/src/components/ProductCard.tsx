@@ -16,20 +16,6 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
 	return (
 		<Card className="h-full flex flex-col">
-			<div className="aspect-square bg-gray-200 rounded-t-lg overflow-hidden">
-				{product.imageUrl ? (
-					<img
-						src={product.imageUrl}
-						alt={product.title}
-						className="w-full h-full object-cover"
-					/>
-				) : (
-					<div className="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
-						<span className="text-gray-600 text-sm">No image</span>
-					</div>
-				)}
-			</div>
-
 			<CardHeader className="flex-1">
 				<CardTitle className="text-lg">{product.title}</CardTitle>
 				<CardDescription className="text-sm text-muted-foreground">

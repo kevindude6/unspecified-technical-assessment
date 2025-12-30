@@ -34,6 +34,26 @@ export function ProductPage() {
 		setCategoryId(categoryId ?? undefined);
 	};
 
+	const GridDisplay = () => {
+		if (isLoading)
+			return (
+				<div className="text-center py-12">
+					<p className="text-muted-foreground">Loading products...</p>
+				</div>
+			);
+
+		if (error || productsData === undefined)
+			return (
+				<div className="text-center py-12">
+					<p className="text-red-500">
+						Error loading products: {error.message}
+					</p>
+				</div>
+			);
+
+		return <ProductGrid products={productsData?.products} />;
+	};
+
 	return (
 		<div className="space-y-6">
 			<div>
@@ -50,19 +70,7 @@ export function ProductPage() {
 				categories={sampleCategories}
 			/>
 
-			{isLoading ? (
-				<div className="text-center py-12">
-					<p className="text-muted-foreground">Loading products...</p>
-				</div>
-			) : error ? (
-				<div className="text-center py-12">
-					<p className="text-red-500">
-						Error loading products: {error.message}
-					</p>
-				</div>
-			) : (
-				<ProductGrid products={sampleProducts} />
-			)}
+			{GridDisplay()}
 		</div>
 	);
 }
