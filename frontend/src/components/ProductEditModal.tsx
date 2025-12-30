@@ -7,15 +7,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CategorySelect } from "@/components/CategorySelect";
 import { useUpdateProduct } from "@/api/product-hooks";
+import { useCreateProduct } from "@/api/product-hooks";
 import { toast } from "sonner";
 import type { Product } from "@/lib/models/product";
 
 interface ProductEditModalProps {
-	product: Product;
+	product?: Product;
 	onClose: () => void;
 }
 
 // ArkType validation schemas based on backend/src/routes/products.ts
+const productCreateSchema = type({
+	title: "1 <= string <= 255",
+	description: "1 <= string <= 255",
+	categoryId: "number.integer",
+	price: "number >= 0",
+	stock: "number.integer",
+	brand: "1 <= string <= 255",
+	sku: "1 <= string <= 255",
+	weight: "number > 0",
+});
+
 const productUpdateSchema = type({
 	"title?": "1 <= string <= 255",
 	"description?": "1 <= string <= 255",
@@ -29,7 +41,10 @@ const productUpdateSchema = type({
 
 export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 	const [isOpen, setIsOpen] = useState(true);
-	const { mutate: updateProduct, isPending } = useUpdateProduct();
+	const { mutate: updateProduct, isPending: isUpdating } = useUpdateProduct();
+	const { mutate: createProduct, isPending: isCreating } = useCreateProduct();
+	const isEditing = !!product;
+	const isPending = isUpdating || isCreating;
 
 	const {
 		register,
@@ -38,35 +53,49 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 		setValue,
 		formState: { errors },
 	} = useForm({
-		resolver: arktypeResolver(productUpdateSchema),
-		defaultValues: {
-			title: product.title,
-			description: product.description,
-			categoryId: product.categoryId,
-			price: product.price,
-			stock: product.stock,
-			brand: product.brand,
-			sku: product.sku,
-			weight: product.weight,
+		resolver: arktypeResolver(
+			isEditing ? productUpdateSchema : productCreateSchema,
+		),
+		defaultValues: product || {
+			title: "",
+			description: "",
+			categoryId: 0,
+			price: 0,
+			stock: 0,
+			brand: "",
+			sku: "",
+			weight: 0,
 		},
 	});
 
 	const onSubmit = (data: any) => {
-		updateProduct(
-			{
-				id: product.id,
-				data: data,
-			},
-			{
+		if (isEditing && product) {
+			updateProduct(
+				{
+					id: product.id,
+					data: data,
+				},
+				{
+					onSuccess: () => {
+						toast.success("Product updated successfully");
+						onClose();
+					},
+					onError: (error) => {
+						toast.error(`Failed to update product: ${error.message}`);
+					},
+				},
+			);
+		} else {
+			createProduct(data, {
 				onSuccess: () => {
-					toast.success("Product updated successfully");
+					toast.success("Product created successfully");
 					onClose();
 				},
 				onError: (error) => {
-					toast.error(`Failed to update product: ${error.message}`);
+					toast.error(`Failed to create product: ${error.message}`);
 				},
-			},
-		);
+			});
+		}
 	};
 
 	const handleClose = () => {
@@ -80,7 +109,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 			{/* Backdrop */}
 			<button
 				type="button"
-				className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-200 ${
+				className={`fixed inset-0 min-h-screen bg-black/50 backdrop-blur-sm transition-opacity duration-200 ${
 					isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
 				}`}
 				onClick={handleClose}
@@ -96,7 +125,9 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 			>
 				{/* Modal Header */}
 				<div className="flex items-center justify-between border-b px-6 py-4">
-					<h2 className="text-lg font-semibold">Edit Product</h2>
+					<h2 className="text-lg font-semibold">
+						{isEditing ? "Edit Product" : "Add Product"}
+					</h2>
 					<Button
 						variant="ghost"
 						size="sm"
@@ -242,7 +273,13 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 							Cancel
 						</Button>
 						<Button type="submit" disabled={isPending}>
-							{isPending ? "Updating..." : "Update Product"}
+							{isPending
+								? isEditing
+									? "Updating..."
+									: "Creating..."
+								: isEditing
+									? "Update Product"
+									: "Create Product"}
 						</Button>
 					</div>
 				</form>
