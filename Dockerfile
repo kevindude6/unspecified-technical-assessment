@@ -1,3 +1,16 @@
+FROM node:24-alpine AS frontend
+WORKDIR /app/frontend
+
+# Copy package.json and package-lock.json (if available)
+COPY ./frontend/package.json ./frontend/pnpm-lock.yaml* ./
+
+# Install dependencies
+RUN corepack enable
+RUN pnpm install --frozen-lockfile
+
+COPY ./frontend  ./
+
+RUN pnpm build
 FROM node:24-alpine AS base
 WORKDIR /app/backend
 
@@ -21,6 +34,7 @@ ENV NODE_ENV production
 COPY --from=base /app/backend/dist ./dist
 COPY --from=base /app/backend/node_modules ./node_modules
 COPY --from=base /app/backend/package.json ./package.json
+COPY --from=frontend /app/frontend/dist ./dist/frontend
 
 EXPOSE 3000
 
