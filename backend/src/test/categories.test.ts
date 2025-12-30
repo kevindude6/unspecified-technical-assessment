@@ -1,8 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { Hono } from "hono";
 import { prisma } from "../lib/prisma.js";
-import categoriesRoutes from "../routes/categories.js";
-import { mockCategory, mockProduct, seedMockData } from "./mock.js";
+import { mockCategory, seedMockData } from "./mock.js";
 import app from "../app.js";
 
 const testApp = app;
