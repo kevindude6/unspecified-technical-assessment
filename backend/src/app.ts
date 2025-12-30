@@ -14,6 +14,6 @@ app.get("/", (c) => {
 app.route("/api/product", productsRoutes);
 
 // Nest category routes under /api/categories
-app.route("/api/categories", categoriesRoutes);
+app.route("/api/category", categoriesRoutes);
 
 export default app;

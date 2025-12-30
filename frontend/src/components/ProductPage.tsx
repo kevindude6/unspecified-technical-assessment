@@ -30,8 +30,8 @@ export function ProductPage() {
 		setSortBy(sortBy);
 	};
 
-	const handleCategoryFilter = (categoryId: number | null) => {
-		setCategoryId(categoryId ?? undefined);
+	const handleCategoryFilter = (categoryId: number | undefined) => {
+		setCategoryId(categoryId);
 	};
 
 	const GridDisplay = () => {
@@ -46,7 +46,7 @@ export function ProductPage() {
 			return (
 				<div className="text-center py-12">
 					<p className="text-red-500">
-						Error loading products: {error.message}
+						Error loading products: {error?.message}
 					</p>
 				</div>
 			);
@@ -67,7 +67,6 @@ export function ProductPage() {
 				onSearch={handleSearch}
 				onSort={handleSort}
 				onCategoryFilter={handleCategoryFilter}
-				categories={sampleCategories}
 			/>
 
 			{GridDisplay()}

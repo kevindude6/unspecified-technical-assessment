@@ -16,14 +16,14 @@ describe("Category Routes", () => {
 		await prisma.category.deleteMany({});
 	});
 
-	describe("POST /api/categories", () => {
+	describe("POST /api/category", () => {
 		it("should create a category successfully", async () => {
 			const categoryData = {
 				name: "POST Category",
 				description: "A test category for testing",
 			};
 
-			const response = await testApp.request("/api/categories", {
+			const response = await testApp.request("/api/category", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -49,7 +49,7 @@ describe("Category Routes", () => {
 			};
 			invalidCategoryData.name = "";
 
-			const response = await testApp.request("/api/categories", {
+			const response = await testApp.request("/api/category", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -69,7 +69,7 @@ describe("Category Routes", () => {
 				description: "A different description",
 			};
 
-			const response = await testApp.request("/api/categories", {
+			const response = await testApp.request("/api/category", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -84,9 +84,9 @@ describe("Category Routes", () => {
 		});
 	});
 
-	describe("GET /api/categories", () => {
+	describe("GET /api/category", () => {
 		it("should retrieve all categories successfully", async () => {
-			const response = await testApp.request("/api/categories", {
+			const response = await testApp.request("/api/category", {
 				method: "GET",
 			});
 
@@ -103,10 +103,10 @@ describe("Category Routes", () => {
 		});
 	});
 
-	describe("GET /api/categories/:id", () => {
+	describe("GET /api/category/:id", () => {
 		it("should retrieve a single category by ID successfully", async () => {
 			const response = await testApp.request(
-				`/api/categories/${mockCategory.id}`,
+				`/api/category/${mockCategory.id}`,
 				{
 					method: "GET",
 				},
@@ -125,7 +125,7 @@ describe("Category Routes", () => {
 		});
 
 		it("should return 404 for non-existent category", async () => {
-			const response = await testApp.request("/api/categories/99999", {
+			const response = await testApp.request("/api/category/99999", {
 				method: "GET",
 			});
 
@@ -137,7 +137,7 @@ describe("Category Routes", () => {
 		});
 
 		it("should return 400 for invalid category ID", async () => {
-			const response = await testApp.request("/api/categories/invalid", {
+			const response = await testApp.request("/api/category/invalid", {
 				method: "GET",
 			});
 
@@ -149,7 +149,7 @@ describe("Category Routes", () => {
 		});
 	});
 
-	describe("PUT /api/categories/:id", () => {
+	describe("PUT /api/category/:id", () => {
 		it("should update a category successfully", async () => {
 			const updateData = {
 				name: "Updated Category Name",
@@ -157,7 +157,7 @@ describe("Category Routes", () => {
 			};
 
 			const response = await testApp.request(
-				`/api/categories/${mockCategory.id}`,
+				`/api/category/${mockCategory.id}`,
 				{
 					method: "PUT",
 					headers: {
@@ -184,7 +184,7 @@ describe("Category Routes", () => {
 				name: "Updated Category Name",
 			};
 
-			const response = await testApp.request("/api/categories/99999", {
+			const response = await testApp.request("/api/category/99999", {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -204,7 +204,7 @@ describe("Category Routes", () => {
 				name: "Updated Category Name",
 			};
 
-			const response = await testApp.request("/api/categories/invalid", {
+			const response = await testApp.request("/api/category/invalid", {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -225,7 +225,7 @@ describe("Category Routes", () => {
 			};
 
 			const response = await testApp.request(
-				`/api/categories/${mockCategory.id}`,
+				`/api/category/${mockCategory.id}`,
 				{
 					method: "PUT",
 					headers: {
@@ -243,7 +243,7 @@ describe("Category Routes", () => {
 		});
 	});
 
-	describe("DELETE /api/categories/:id", () => {
+	describe("DELETE /api/category/:id", () => {
 		it("should delete a category successfully", async () => {
 			// First create a second category for testing deletion
 			const secondCategory = await prisma.category.create({
@@ -254,7 +254,7 @@ describe("Category Routes", () => {
 			});
 
 			const response = await testApp.request(
-				`/api/categories/${secondCategory.id}`,
+				`/api/category/${secondCategory.id}`,
 				{
 					method: "DELETE",
 				},
@@ -275,7 +275,7 @@ describe("Category Routes", () => {
 		});
 
 		it("should return 404 for non-existent category", async () => {
-			const response = await testApp.request("/api/categories/99999", {
+			const response = await testApp.request("/api/category/99999", {
 				method: "DELETE",
 			});
 
@@ -287,7 +287,7 @@ describe("Category Routes", () => {
 		});
 
 		it("should return 400 for invalid category ID", async () => {
-			const response = await testApp.request("/api/categories/invalid", {
+			const response = await testApp.request("/api/category/invalid", {
 				method: "DELETE",
 			});
 
@@ -300,7 +300,7 @@ describe("Category Routes", () => {
 
 		it("should return 400 when trying to delete category with associated products", async () => {
 			const response = await testApp.request(
-				`/api/categories/${mockCategory.id}`,
+				`/api/category/${mockCategory.id}`,
 				{
 					method: "DELETE",
 				},

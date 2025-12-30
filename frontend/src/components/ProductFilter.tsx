@@ -1,31 +1,29 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import type { Category } from "@/lib/models/category";
+import { CategorySelect } from "./CategorySelect";
 
 interface ProductFilterProps {
 	onSearch: (searchTerm: string) => void;
 	onSort: (sortBy: string) => void;
-	onCategoryFilter: (categoryId: number | null) => void;
-	categories?: Category[];
+	onCategoryFilter: (categoryId: number | undefined) => void;
 }
 
 export function ProductFilter({
 	onSearch,
 	onSort,
 	onCategoryFilter,
-	categories = [],
 }: ProductFilterProps) {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [sortBy, setSortBy] = useState("name");
-	const [categoryId, setCategoryId] = useState<number | null>(null);
+	const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
 
 	const handleSort = (newSortBy: string) => {
 		setSortBy(newSortBy);
 		onSort(newSortBy);
 	};
 
-	const handleCategoryFilter = (newCategoryId: number | null) => {
+	const handleCategoryFilter = (newCategoryId: number | undefined) => {
 		setCategoryId(newCategoryId);
 		onCategoryFilter(newCategoryId);
 	};
@@ -73,23 +71,12 @@ export function ProductFilter({
 			)}
 
 			<div className="flex flex-wrap gap-2">
-				<Button
-					variant={categoryId === null ? "default" : "outline"}
-					onClick={() => handleCategoryFilter(null)}
-					size="sm"
-				>
-					All Categories
-				</Button>
-				{categories.map((category) => (
-					<Button
-						key={category.id}
-						variant={categoryId === category.id ? "default" : "outline"}
-						onClick={() => handleCategoryFilter(category.id)}
-						size="sm"
-					>
-						{category.name}
-					</Button>
-				))}
+				<CategorySelect
+					value={categoryId}
+					onChange={handleCategoryFilter}
+					label="Filter by Category"
+					className="w-full sm:w-auto"
+				/>
 			</div>
 		</div>
 	);
