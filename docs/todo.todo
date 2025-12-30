@@ -6,3 +6,4 @@
 ☐ implement new category / edit category
 ☐ re-implement sorting for products
 ☐ product search isnt considering category name
+☐ manually adjust the tanstack hooks to be less complicated
