@@ -105,7 +105,7 @@ app.get(
 			// biome-ignore lint/suspicious/noExplicitAny: need to allow this
 			const where: any = {};
 
-			// Add search filter (case-insensitive match on title or description)
+			// Add search filter (case-insensitive match on title, description, or category name)
 			if (search) {
 				where.OR = [
 					{
@@ -118,6 +118,14 @@ app.get(
 						description: {
 							contains: search,
 							mode: "insensitive",
+						},
+					},
+					{
+						category: {
+							name: {
+								contains: search,
+								mode: "insensitive",
+							},
 						},
 					},
 				];
