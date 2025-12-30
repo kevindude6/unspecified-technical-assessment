@@ -27,6 +27,8 @@ const productUpdateSchema = type({
 	"brand?": "1 <= string <= 255",
 	"sku?": "1 <= string <= 255",
 	"weight?": "number > 0",
+	"id?": "number.integer",
+	"category?": "object",
 });
 
 // POST /api/products - Create a new product
@@ -257,10 +259,11 @@ app.put(
 				}
 			}
 
+			const { id: _, category: __, ...toUpdate } = productData;
 			// Update the product
 			const product = await prisma.product.update({
 				where: { id: id },
-				data: productData,
+				data: toUpdate,
 			});
 
 			return c.json({
