@@ -1,7 +1,7 @@
 services:
   postgres-dev:
     image: postgres:18
-    container_name: app-postgres-deb
+    container_name: app-postgres-dev
     restart: unless-stopped
     environment:
       POSTGRES_DB: app_dev
