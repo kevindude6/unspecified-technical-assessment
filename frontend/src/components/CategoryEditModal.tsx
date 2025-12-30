@@ -13,6 +13,7 @@ import type { Category } from "@/lib/models/category";
 interface CategoryEditModalProps {
 	category?: Category;
 	onClose: () => void;
+	isOpen?: boolean;
 }
 
 // ArkType validation schemas based on backend/src/routes/categories.ts
@@ -29,8 +30,8 @@ const categoryUpdateSchema = type({
 export function CategoryEditModal({
 	category,
 	onClose,
+	isOpen = true,
 }: CategoryEditModalProps) {
-	const [isOpen, setIsOpen] = useState(true);
 	const { mutate: updateCategory, isPending: isUpdating } = useUpdateCategory();
 	const { mutate: createCategory, isPending: isCreating } = useCreateCategory();
 	const isEditing = !!category;
@@ -81,11 +82,11 @@ export function CategoryEditModal({
 	};
 
 	const handleClose = () => {
-		setIsOpen(false);
 		// Allow modal to animate out before calling onClose
 		setTimeout(onClose, 200);
 	};
 
+	if (!isOpen) return;
 	return (
 		<>
 			{/* Backdrop */}

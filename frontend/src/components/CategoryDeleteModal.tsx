@@ -2,7 +2,7 @@ import { type Category } from "../lib/models/category";
 
 interface CategoryDeleteModalProps {
 	category: Category | null;
-	isOpen: boolean;
+	isOpen?: boolean;
 	isDeleting: boolean;
 	onConfirm: () => void;
 	onCancel: () => void;
@@ -10,7 +10,7 @@ interface CategoryDeleteModalProps {
 
 export function CategoryDeleteModal({
 	category,
-	isOpen,
+	isOpen = false,
 	isDeleting,
 	onConfirm,
 	onCancel,
