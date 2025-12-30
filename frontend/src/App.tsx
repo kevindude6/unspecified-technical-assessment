@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { Layout } from "./components/Layout";
 import { ProductPage } from "./components/ProductPage";
+import { CategoryPage } from "./components/CategoryPage";
 
 function App() {
 	const queryClient = new QueryClient();
@@ -14,6 +15,10 @@ function App() {
 	const renderPageContent = () => {
 		if (currentPage === "Products") {
 			return <ProductPage />;
+		}
+
+		if (currentPage === "Categories") {
+			return <CategoryPage />;
 		}
 
 		return (
