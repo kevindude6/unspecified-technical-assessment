@@ -3,12 +3,9 @@ import { Hono } from "hono";
 import { prisma } from "../lib/prisma.js";
 import productsRoutes from "../routes/products.js";
 import { mockCategory, mockProduct, seedMockData } from "./mock.js";
+import app from "../app.js";
 
-// Test database setup
-const testApp = new Hono();
-
-// Mount the product routes
-testApp.route("/api/product", productsRoutes);
+const testApp = app;
 
 describe("Product Routes", () => {
 	beforeEach(async () => {
