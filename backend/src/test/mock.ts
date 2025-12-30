@@ -1,10 +1,11 @@
-import { prisma, } from "../lib/prisma.js";
+import { prisma } from "../lib/prisma.js";
 
 export const mockCategory = {
 	name: "Test Category",
 	description: "Test category for product tests",
 	id: 9999,
 };
+
 export const mockProduct = {
 	title: "Test Product",
 	description: "A test product for testing",
