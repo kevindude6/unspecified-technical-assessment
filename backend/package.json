@@ -10,7 +10,7 @@
     "test:watch": "dotenv -e .env.test -- vitest",
     "test:coverage": "dotenv -e .env.test -- vitest run --coverage",
     "db:test:up": "docker-compose -f ../docker-compose-test-db.yml up -d postgres-test",
-    "db:test:down": "docker-compose -f ../docker-compose-test-db.yml down postgres-test -v",
+    "db:test:down": "docker-compose -f ../docker-compose-test-db.yml down postgres-test",
     "db:test:migrate": "dotenv -e .env.test -- prisma migrate dev",
     "db:dev:up": "docker-compose up -d postgres-dev",
     "db:dev:down": "docker-compose down postgres-dev",

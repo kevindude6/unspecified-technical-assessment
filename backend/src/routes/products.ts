@@ -81,30 +81,102 @@ app.post(
 	},
 );
 
-// GET /api/products - Get all products
-app.get("/", async (c) => {
-	try {
-		const products = await prisma.product.findMany({
-			include: {
-				category: true,
-			},
-		});
-
-		return c.json({
-			success: true,
-			data: {
-				products: products,
-			},
-			message: "Products retrieved successfully",
-		});
-	} catch (error) {
-		console.error("Error retrieving products:", error);
-		return c.json(
-			{ success: false, error: "Failed to retrieve products" },
-			500,
-		);
-	}
+// Query parameter schema for filtering and pagination
+const productQuerySchema = type({
+	"search?": "string",
+	"categoryId?": "number.integer",
+	"page?": "number.integer >= 1",
 });
+
+// GET /api/products - Get all products with filtering and pagination
+app.get(
+	"/",
+	sValidator("query", productQuerySchema, (result, c) => {
+		if (!result.success) {
+			return c.json({ success: false, error: "Invalid query parameters" }, 400);
+		}
+	}),
+	async (c) => {
+		try {
+			const QUERY_LIMIT = 30;
+			const { search, categoryId, page = 1 } = c.req.valid("query");
+
+			// Build where clause for filtering
+			// biome-ignore lint/suspicious/noExplicitAny: need to allow this
+			const where: any = {};
+
+			// Add search filter (case-insensitive match on title or description)
+			if (search) {
+				where.OR = [
+					{
+						title: {
+							contains: search,
+							mode: "insensitive",
+						},
+					},
+					{
+						description: {
+							contains: search,
+							mode: "insensitive",
+						},
+					},
+				];
+			}
+
+			// Add category filter
+			if (categoryId) {
+				where.categoryId = categoryId;
+			}
+
+			// Calculate pagination
+			const skip = (page - 1) * QUERY_LIMIT;
+			const take = QUERY_LIMIT;
+
+			// Get total count for pagination metadata
+			const total = await prisma.product.count({ where });
+
+			// Get products with filtering and pagination
+			const products = await prisma.product.findMany({
+				where,
+				include: {
+					category: true,
+				},
+				skip,
+				take,
+				orderBy: {
+					id: "desc", // Show newest products first
+				},
+			});
+
+			// Calculate pagination metadata
+			const totalPages = Math.ceil(total / QUERY_LIMIT);
+			const hasNextPage = page < totalPages;
+			const hasPrevPage = page > 1;
+
+			return c.json({
+				success: true,
+				data: {
+					products: products,
+					pagination: {
+						currentPage: page,
+						totalPages: totalPages,
+						totalItems: total,
+						itemsPerPage: QUERY_LIMIT,
+						hasNextPage: hasNextPage,
+						hasPrevPage: hasPrevPage,
+					},
+				},
+				message: "Products retrieved successfully",
+			});
+		} catch (error) {
+			console.error("Error retrieving products:", error);
+			return c.json(
+				{ success: false, error: "Failed to retrieve products" },
+				500,
+			);
+		}
+	},
+);
 
 // GET /api/products/:id - Get a single product by ID
 app.get("/:id", async (c) => {
