@@ -2,16 +2,15 @@
   "name": "backend",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "dotenv -e .env.dev -- tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "lint": "pnpm biome lint --write --unsafe",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "db:up": "docker-compose up -d postgres-test",
-    "db:down": "docker-compose down postgres-test",
-    "db:logs": "docker-compose logs -f postgres-test"
+    "test": "dotenv -e .env.test -- vitest run",
+    "test:watch": "dotenv -e .env.test -- vitest",
+    "test:coverage": "dotenv -e .env.test -- vitest run --coverage",
+    "db:test:up": "docker-compose up -d postgres-test",
+    "db:test:down": "docker-compose down postgres-test -v"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.6",
@@ -28,6 +27,7 @@
     "@types/node": "^20.11.17",
     "@types/pg": "^8.16.0",
     "@vitest/coverage-v8": "^4.0.16",
+    "dotenv-cli": "^8.0.0",
     "prisma": "^7.2.0",
     "tsx": "^4.7.1",
     "typescript": "^5.8.3",
