@@ -20,10 +20,6 @@ export function ProductFilter({
 	const [sortBy, setSortBy] = useState("name");
 	const [categoryId, setCategoryId] = useState<number | null>(null);
 
-	const handleSearch = () => {
-		onSearch(searchTerm);
-	};
-
 	const handleSort = (newSortBy: string) => {
 		setSortBy(newSortBy);
 		onSort(newSortBy);
@@ -41,13 +37,13 @@ export function ProductFilter({
 					<Input
 						placeholder="Search products..."
 						value={searchTerm}
-						onChange={(e) => setSearchTerm(e.target.value)}
+						onChange={(e) => {
+							setSearchTerm(e.target.value);
+							onSearch(e.target.value);
+						}}
 						className="w-full"
 					/>
 				</div>
-				<Button onClick={handleSearch} className="w-full sm:w-auto">
-					Search
-				</Button>
 			</div>
 
 			<div className="flex flex-wrap gap-2">
