@@ -22,7 +22,7 @@ app.post(
 	"/",
 	sValidator("json", productSchema, (result, c) => {
 		if (!result.success) {
-			return c.json({ success: false, error: "Validation Error" }); // More details good, but we need to move quickly
+			return c.json({ success: false, error: "Validation Error" }, 400); // More details good, but we need to move quickly
 		}
 	}),
 	async (c) => {
