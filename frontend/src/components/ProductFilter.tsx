@@ -42,6 +42,11 @@ export function ProductFilter({
 						className="w-full"
 					/>
 				</div>
+				<CategorySelect
+					value={categoryId}
+					onChange={handleCategoryFilter}
+					className="w-full sm:w-64"
+				/>
 			</div>
 
 			{false && (
@@ -69,15 +74,6 @@ export function ProductFilter({
 					</Button>
 				</div>
 			)}
-
-			<div className="flex flex-wrap gap-2">
-				<CategorySelect
-					value={categoryId}
-					onChange={handleCategoryFilter}
-					label="Filter by Category"
-					className="w-full sm:w-auto"
-				/>
-			</div>
 		</div>
 	);
 }

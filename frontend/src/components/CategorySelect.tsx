@@ -21,8 +21,8 @@ export function CategorySelect({
 	value,
 	onChange,
 	placeholder = "Select a category",
-	label = "Category",
 	disabled = false,
+	label = "",
 	className,
 }: CategorySelectProps) {
 	const [isOpen, setIsOpen] = useState(false);
@@ -35,6 +35,10 @@ export function CategorySelect({
 	};
 
 	const selectedCategory = data?.categories.find((cat) => cat.id === value);
+
+	// Sort categories alphabetically by name
+	const sortedCategories =
+		data?.categories.sort((a, b) => a.name.localeCompare(b.name)) || [];
 
 	return (
 		<div className={className}>
@@ -64,7 +68,7 @@ export function CategorySelect({
 				</SelectTrigger>
 				<SelectContent>
 					<SelectItem value="all">All Categories</SelectItem>
-					{data?.categories.map((category) => (
+					{sortedCategories.map((category) => (
 						<SelectItem key={category.id} value={category.id.toString()}>
 							{category.name}
 						</SelectItem>
