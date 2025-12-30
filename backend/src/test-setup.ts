@@ -1,4 +1,4 @@
-import { beforeAll, afterAll, beforeEach } from "vitest";
+import { beforeAll, afterAll, } from "vitest";
 import { prisma } from "./lib/prisma.js";
 
 // Global test setup

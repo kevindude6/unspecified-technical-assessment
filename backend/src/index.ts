@@ -1,6 +1,4 @@
 import { serve } from "@hono/node-server";
-import { Hono } from "hono";
-import { prisma } from "./lib/prisma.js";
 import app from "./app.js";
 
 serve(

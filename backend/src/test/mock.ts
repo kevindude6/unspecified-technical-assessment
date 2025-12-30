@@ -1,4 +1,4 @@
-import { prisma, type Prisma } from "../lib/prisma.js";
+import { prisma, } from "../lib/prisma.js";
 
 export const mockCategory = {
 	name: "Test Category",

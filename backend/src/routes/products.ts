@@ -17,6 +17,18 @@ const productSchema = type({
 	weight: "number > 0",
 });
 
+// Product update schema validation using ArkType
+const productUpdateSchema = type({
+	"title?": "1 <= string <= 255",
+	"description?": "1 <= string <= 255",
+	"categoryId?": "number.integer",
+	"price?": "number >= 0",
+	"stock?": "number.integer",
+	"brand?": "1 <= string <= 255",
+	"sku?": "1 <= string <= 255",
+	"weight?": "number > 0",
+});
+
 // POST /api/products - Create a new product
 app.post(
 	"/",
@@ -68,5 +80,157 @@ app.post(
 		}
 	},
 );
+
+// GET /api/products - Get all products
+app.get("/", async (c) => {
+	try {
+		const products = await prisma.product.findMany({
+			include: {
+				category: true,
+			},
+		});
+
+		return c.json({
+			success: true,
+			data: {
+				products: products,
+			},
+			message: "Products retrieved successfully",
+		});
+	} catch (error) {
+		console.error("Error retrieving products:", error);
+		return c.json(
+			{ success: false, error: "Failed to retrieve products" },
+			500,
+		);
+	}
+});
+
+// GET /api/products/:id - Get a single product by ID
+app.get("/:id", async (c) => {
+	try {
+		const id = parseInt(c.req.param("id"), 10);
+
+		if (Number.isNaN(id)) {
+			return c.json({ success: false, error: "Invalid product ID" }, 400);
+		}
+
+		const product = await prisma.product.findUnique({
+			where: { id: id },
+			include: {
+				category: true,
+			},
+		});
+
+		if (!product) {
+			return c.json({ success: false, error: "Product not found" }, 404);
+		}
+
+		return c.json({
+			success: true,
+			data: {
+				products: [product],
+			},
+			message: "Product retrieved successfully",
+		});
+	} catch (error) {
+		console.error("Error retrieving product:", error);
+		return c.json({ success: false, error: "Failed to retrieve product" }, 500);
+	}
+});
+
+// PUT /api/products/:id - Update a product by ID
+app.put(
+	"/:id",
+	sValidator("json", productUpdateSchema, (result, c) => {
+		if (!result.success) {
+			return c.json({ success: false, error: "Validation Error" }, 400);
+		}
+	}),
+	async (c) => {
+		try {
+			const id = parseInt(c.req.param("id"), 10);
+
+			if (Number.isNaN(id)) {
+				return c.json({ success: false, error: "Invalid product ID" }, 400);
+			}
+
+			const productData = await c.req.valid("json");
+
+			// Check if product exists
+			const existingProduct = await prisma.product.findUnique({
+				where: { id: id },
+			});
+
+			if (!existingProduct) {
+				return c.json({ success: false, error: "Product not found" }, 404);
+			}
+
+			// Check if category exists if categoryId is provided
+			if (productData.categoryId !== undefined) {
+				const category = await prisma.category.findUnique({
+					where: { id: productData.categoryId },
+				});
+
+				if (!category) {
+					return c.json({ success: false, error: "Category not found" }, 404);
+				}
+			}
+
+			// Update the product
+			const product = await prisma.product.update({
+				where: { id: id },
+				data: productData,
+			});
+
+			return c.json({
+				success: true,
+				data: {
+					products: [product],
+				},
+				message: "Product updated successfully",
+			});
+		} catch (error) {
+			console.error("Error updating product:", error);
+			return c.json({ success: false, error: "Failed to update product" }, 500);
+		}
+	},
+);
+
+// DELETE /api/products/:id - Delete a product by ID
+app.delete("/:id", async (c) => {
+	try {
+		const id = parseInt(c.req.param("id"), 10);
+
+		if (Number.isNaN(id)) {
+			return c.json({ success: false, error: "Invalid product ID" }, 400);
+		}
+
+		// Check if product exists
+		const existingProduct = await prisma.product.findUnique({
+			where: { id: id },
+		});
+
+		if (!existingProduct) {
+			return c.json({ success: false, error: "Product not found" }, 404);
+		}
+
+		// Delete the product
+		await prisma.product.delete({
+			where: { id: id },
+		});
+
+		return c.json({
+			success: true,
+			data: {
+				products: [],
+			},
+			message: "Product deleted successfully",
+		});
+	} catch (error) {
+		console.error("Error deleting product:", error);
+		return c.json({ success: false, error: "Failed to delete product" }, 500);
+	}
+});
 
 export default app;

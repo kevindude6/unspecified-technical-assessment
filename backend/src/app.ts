@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { prisma } from "./lib/prisma.js";
 import productsRoutes from "./routes/products.js";
 
 const app = new Hono();
