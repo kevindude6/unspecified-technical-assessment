@@ -223,7 +223,7 @@ app.delete("/:id", async (c) => {
 		return c.json({
 			success: true,
 			data: {
-				products: [],
+				products: [existingProduct],
 			},
 			message: "Product deleted successfully",
 		});

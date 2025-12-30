@@ -272,7 +272,7 @@ describe("Product Routes", () => {
 
 			const result = await response.json();
 			expect(result.success).toBe(true);
-			expect(result.data.products).toHaveLength(0);
+			expect(result.data.products).toHaveLength(1);
 			expect(result.message).toBe("Product deleted successfully");
 
 			// Verify the product was actually deleted

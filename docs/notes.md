@@ -1,0 +1,2 @@
+- annoying that this ai defaults to zod all the time
+- doesn't seem to fully understand arktype
