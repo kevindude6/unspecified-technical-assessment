@@ -1,4 +1,3 @@
-
 import { useForm } from "react-hook-form";
 import { type } from "arktype";
 import { arktypeResolver } from "@hookform/resolvers/arktype";
@@ -13,7 +12,6 @@ import type { Category } from "@/lib/models/category";
 interface CategoryEditModalProps {
 	category?: Category;
 	onClose: () => void;
-	isOpen?: boolean;
 }
 
 // ArkType validation schemas based on backend/src/routes/categories.ts
@@ -30,7 +28,6 @@ const categoryUpdateSchema = type({
 export function CategoryEditModal({
 	category,
 	onClose,
-	isOpen = true,
 }: CategoryEditModalProps) {
 	const { mutate: updateCategory, isPending: isUpdating } = useUpdateCategory();
 	const { mutate: createCategory, isPending: isCreating } = useCreateCategory();
@@ -86,7 +83,6 @@ export function CategoryEditModal({
 		setTimeout(onClose, 200);
 	};
 
-	if (!isOpen) return null;
 	return (
 		<>
 			{/* Backdrop */}

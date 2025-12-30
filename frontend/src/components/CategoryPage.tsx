@@ -131,17 +131,20 @@ export function CategoryPage() {
 			{CategoriesDisplay()}
 
 			{/* Add Category Modal */}
-			<CategoryEditModal
-				isOpen={isAddModalOpen}
-				onClose={() => setIsAddModalOpen(false)}
-			/>
+			{isAddModalOpen && (
+				<CategoryEditModal
+					isOpen={isAddModalOpen}
+					onClose={() => setIsAddModalOpen(false)}
+				/>
+			)}
 
 			{/* Edit Category Modal */}
-			<CategoryEditModal
-				category={editingCategory || undefined}
-				isOpen={!!editingCategory}
-				onClose={() => setEditingCategory(null)}
-			/>
+			{editingCategory && (
+				<CategoryEditModal
+					category={editingCategory}
+					onClose={() => setEditingCategory(null)}
+				/>
+			)}
 
 			{/* Delete Confirmation Modal */}
 			<CategoryDeleteModal
