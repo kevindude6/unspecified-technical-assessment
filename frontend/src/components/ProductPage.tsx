@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ProductFilter } from "./ProductFilter";
 import { ProductGrid } from "./ProductGrid";
+import { Pagination } from "./Pagination";
 import { useProducts } from "../api/product-hooks";
 import { sampleProducts, sampleCategories } from "../lib/sample-data";
 import type { Product } from "../lib/models/product";
@@ -9,6 +10,7 @@ export function ProductPage() {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [sortBy, setSortBy] = useState("name");
 	const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
+	const [currentPage, setCurrentPage] = useState(1);
 
 	// For now, using sample data until backend is connected
 	// TODO: Replace with actual API calls when backend is ready
@@ -19,11 +21,12 @@ export function ProductPage() {
 	} = useProducts({
 		search: searchTerm,
 		categoryId,
-		page: 1,
+		page: currentPage,
 	});
 
 	const handleSearch = (term: string) => {
 		setSearchTerm(term);
+		setCurrentPage(1); // Reset to first page when searching
 	};
 
 	const handleSort = (sortBy: string) => {
@@ -32,6 +35,11 @@ export function ProductPage() {
 
 	const handleCategoryFilter = (categoryId: number | undefined) => {
 		setCategoryId(categoryId);
+		setCurrentPage(1); // Reset to first page when filtering by category
+	};
+
+	const handlePageChange = (page: number) => {
+		setCurrentPage(page);
 	};
 
 	const GridDisplay = () => {
@@ -51,7 +59,20 @@ export function ProductPage() {
 				</div>
 			);
 
-		return <ProductGrid products={productsData?.products} />;
+		return (
+			<div>
+				<div className="flex justify-between items-center mb-4">
+					<div className="text-sm text-muted-foreground">
+						Showing page {productsData.pagination.currentPage} of{" "}
+						{productsData.pagination.totalPages}
+					</div>
+					<div className="text-sm text-muted-foreground">
+						Total products: {productsData.pagination.totalItems}
+					</div>
+				</div>
+				<ProductGrid products={productsData.products} />
+			</div>
+		);
 	};
 
 	return (
@@ -70,6 +91,14 @@ export function ProductPage() {
 			/>
 
 			{GridDisplay()}
+
+			{productsData && (
+				<Pagination
+					currentPage={productsData.pagination.currentPage}
+					totalPages={productsData.pagination.totalPages}
+					onPageChange={handlePageChange}
+				/>
+			)}
 		</div>
 	);
 }
