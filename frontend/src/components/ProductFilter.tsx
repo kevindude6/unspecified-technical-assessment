@@ -46,29 +46,31 @@ export function ProductFilter({
 				</div>
 			</div>
 
-			<div className="flex flex-wrap gap-2">
-				<Button
-					variant={sortBy === "name" ? "default" : "outline"}
-					onClick={() => handleSort("name")}
-					size="sm"
-				>
-					Sort by Name
-				</Button>
-				<Button
-					variant={sortBy === "price" ? "default" : "outline"}
-					onClick={() => handleSort("price")}
-					size="sm"
-				>
-					Sort by Price
-				</Button>
-				<Button
-					variant={sortBy === "date" ? "default" : "outline"}
-					onClick={() => handleSort("date")}
-					size="sm"
-				>
-					Sort by Date
-				</Button>
-			</div>
+			{false && (
+				<div className="flex flex-wrap gap-2">
+					<Button
+						variant={sortBy === "name" ? "default" : "outline"}
+						onClick={() => handleSort("name")}
+						size="sm"
+					>
+						Sort by Name
+					</Button>
+					<Button
+						variant={sortBy === "price" ? "default" : "outline"}
+						onClick={() => handleSort("price")}
+						size="sm"
+					>
+						Sort by Price
+					</Button>
+					<Button
+						variant={sortBy === "date" ? "default" : "outline"}
+						onClick={() => handleSort("date")}
+						size="sm"
+					>
+						Sort by Date
+					</Button>
+				</div>
+			)}
 
 			<div className="flex flex-wrap gap-2">
 				<Button
