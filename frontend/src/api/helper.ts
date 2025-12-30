@@ -5,6 +5,7 @@ import type { ApiResponse } from "../lib/apiModel";
  * Returns the data directly or throws an error
  */
 const baseURL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+console.log(baseURL);
 export async function SafeRequest<T>(
 	endpoint: string,
 	options: RequestInit = {},

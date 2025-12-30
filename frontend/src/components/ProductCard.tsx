@@ -7,15 +7,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
-export interface Product {
-	id: string;
-	name: string;
-	description: string;
-	price: number;
-	category: string;
-	imageUrl?: string;
-}
+import type { Product } from "@/lib/models/product";
 
 interface ProductCardProps {
 	product: Product;
@@ -28,7 +20,7 @@ export function ProductCard({ product }: ProductCardProps) {
 				{product.imageUrl ? (
 					<img
 						src={product.imageUrl}
-						alt={product.name}
+						alt={product.title}
 						className="w-full h-full object-cover"
 					/>
 				) : (
@@ -39,9 +31,9 @@ export function ProductCard({ product }: ProductCardProps) {
 			</div>
 
 			<CardHeader className="flex-1">
-				<CardTitle className="text-lg">{product.name}</CardTitle>
+				<CardTitle className="text-lg">{product.title}</CardTitle>
 				<CardDescription className="text-sm text-muted-foreground">
-					{product.category}
+					{product.category.name}
 				</CardDescription>
 			</CardHeader>
 

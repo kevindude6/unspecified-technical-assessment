@@ -1,21 +1,24 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import type { Category } from "@/lib/models/category";
 
 interface ProductFilterProps {
 	onSearch: (searchTerm: string) => void;
 	onSort: (sortBy: string) => void;
-	onCategoryFilter: (category: string) => void;
+	onCategoryFilter: (categoryId: number | null) => void;
+	categories?: Category[];
 }
 
 export function ProductFilter({
 	onSearch,
 	onSort,
 	onCategoryFilter,
+	categories = [],
 }: ProductFilterProps) {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [sortBy, setSortBy] = useState("name");
-	const [category, setCategory] = useState("");
+	const [categoryId, setCategoryId] = useState<number | null>(null);
 
 	const handleSearch = () => {
 		onSearch(searchTerm);
@@ -26,9 +29,9 @@ export function ProductFilter({
 		onSort(newSortBy);
 	};
 
-	const handleCategoryFilter = (newCategory: string) => {
-		setCategory(newCategory);
-		onCategoryFilter(newCategory);
+	const handleCategoryFilter = (newCategoryId: number | null) => {
+		setCategoryId(newCategoryId);
+		onCategoryFilter(newCategoryId);
 	};
 
 	return (
@@ -73,33 +76,22 @@ export function ProductFilter({
 
 			<div className="flex flex-wrap gap-2">
 				<Button
-					variant={category === "" ? "default" : "outline"}
-					onClick={() => handleCategoryFilter("")}
+					variant={categoryId === null ? "default" : "outline"}
+					onClick={() => handleCategoryFilter(null)}
 					size="sm"
 				>
 					All Categories
 				</Button>
-				<Button
-					variant={category === "vinyl" ? "default" : "outline"}
-					onClick={() => handleCategoryFilter("vinyl")}
-					size="sm"
-				>
-					Vinyl
-				</Button>
-				<Button
-					variant={category === "cd" ? "default" : "outline"}
-					onClick={() => handleCategoryFilter("cd")}
-					size="sm"
-				>
-					CDs
-				</Button>
-				<Button
-					variant={category === "tape" ? "default" : "outline"}
-					onClick={() => handleCategoryFilter("tape")}
-					size="sm"
-				>
-					Tapes
-				</Button>
+				{categories.map((category) => (
+					<Button
+						key={category.id}
+						variant={categoryId === category.id ? "default" : "outline"}
+						onClick={() => handleCategoryFilter(category.id)}
+						size="sm"
+					>
+						{category.name}
+					</Button>
+				))}
 			</div>
 		</div>
 	);
