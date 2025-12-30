@@ -5,7 +5,7 @@ import { ProductPage } from "./components/ProductPage";
 import { CategoryPage } from "./components/CategoryPage";
 import { HomePage } from "./components/HomePage";
 
-type Page = "Home" | "Products" | "Categories";
+export type Page = "Home" | "Products" | "Categories";
 
 function App() {
 	const queryClient = new QueryClient();

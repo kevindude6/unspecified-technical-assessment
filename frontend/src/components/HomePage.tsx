@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import type { Page } from "@/App";
 
 interface HomePageProps {
-	onPageChange: (page: string) => void;
+	onPageChange: (page: Page) => void;
 }
 
 export function HomePage({ onPageChange }: HomePageProps) {
