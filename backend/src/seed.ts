@@ -5,22 +5,22 @@ import { prisma } from "./lib/prisma.js";
 async function seed() {
 	// Check if NODE_ENV is set to 'dev'
 	if (process.env.NODE_ENV !== "dev") {
-		console.error("❌ Seed script can only run in development environment");
+		console.error("Seed script can only run in development environment");
 		console.error(`Current NODE_ENV: ${process.env.NODE_ENV}`);
 		console.error("Please set NODE_ENV=dev to run this script");
 		process.exit(1);
 	}
 
-	console.log("🌱 Starting database seed...");
+	console.log("Starting database seed...");
 
 	try {
 		// Clear existing data
-		console.log("🗑️  Clearing existing data...");
+		console.log("Clearing existing data...");
 		await prisma.product.deleteMany();
 		await prisma.category.deleteMany();
 
 		// Generate 20 categories
-		console.log("🏷️  Creating 20 categories...");
+		console.log("Creating 20 categories...");
 		const categories = [];
 		const categoryNames = new Set<string>();
 
@@ -41,10 +41,10 @@ async function seed() {
 			data: categories,
 		});
 
-		console.log(`✅ Created ${createdCategories.count} categories`);
+		console.log(`Created ${createdCategories.count} categories`);
 
 		// Generate 500 products
-		console.log("🎵 Creating 500 products...");
+		console.log("Creating 500 products...");
 		const products = [];
 
 		// Fetch all categories to get their IDs
@@ -74,14 +74,14 @@ async function seed() {
 			data: products,
 		});
 
-		console.log(`✅ Created ${createdProducts.count} products`);
+		console.log(`Created ${createdProducts.count} products`);
 
-		console.log("🎉 Database seeding completed successfully!");
+		console.log("Database seeding completed successfully!");
 		console.log(
-			`📊 Total: ${createdCategories.count} categories, ${createdProducts.count} products`,
+			`Total: ${createdCategories.count} categories, ${createdProducts.count} products`,
 		);
 	} catch (error) {
-		console.error("❌ Error during seeding:", error);
+		console.error("Error during seeding:", error);
 		process.exit(1);
 	} finally {
 		await prisma.$disconnect();
