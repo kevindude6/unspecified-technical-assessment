@@ -121,3 +121,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Add cursor pointer to all non-disabled buttons */
+button:not(:disabled) {
+  cursor: pointer;
+}
