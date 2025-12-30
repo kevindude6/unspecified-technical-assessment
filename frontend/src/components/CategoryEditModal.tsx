@@ -86,26 +86,20 @@ export function CategoryEditModal({
 		setTimeout(onClose, 200);
 	};
 
-	if (!isOpen) return;
+	if (!isOpen) return null;
 	return (
 		<>
 			{/* Backdrop */}
 			<button
 				type="button"
-				className={`fixed inset-0 min-h-screen bg-black/50 backdrop-blur-sm transition-opacity duration-200 ${
-					isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-				}`}
+				className="fixed inset-0 min-h-screen bg-black/50 backdrop-blur-sm transition-opacity duration-200 opacity-100"
 				onClick={handleClose}
 				onKeyUp={(e) => e.key === "Escape" && handleClose()}
 				aria-label="Close modal"
 			/>
 
 			{/* Modal */}
-			<div
-				className={`fixed left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border bg-card shadow-lg transition-all duration-200 ${
-					isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
-				}`}
-			>
+			<div className="fixed left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border bg-card shadow-lg transition-all duration-200 scale-100 opacity-100">
 				{/* Modal Header */}
 				<div className="flex items-center justify-between border-b px-6 py-4">
 					<h2 className="text-lg font-semibold">
