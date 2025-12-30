@@ -14,7 +14,8 @@
     "db:test:migrate": "dotenv -e .env.test -- prisma migrate dev",
     "db:dev:up": "docker-compose up -d postgres-dev",
     "db:dev:down": "docker-compose down postgres-dev",
-    "db:dev:migrate": "dotenv -e .env.dev -- prisma migrate dev"
+    "db:dev:migrate": "dotenv -e .env.dev -- prisma migrate dev",
+    "seed": "dotenv -e .env.dev -- tsx src/seed.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.6",
