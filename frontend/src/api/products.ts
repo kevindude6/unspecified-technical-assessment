@@ -38,7 +38,7 @@ export interface ProductQueryParams {
 export async function createProduct(
 	productData: CreateProductRequest,
 ): Promise<Product> {
-	return SafeRequest<Product>("/api/products", {
+	return SafeRequest<Product>("/api/product", {
 		method: "POST",
 		body: JSON.stringify(productData),
 	});
@@ -58,9 +58,7 @@ export async function getProducts(
 	if (params?.page) searchParams.append("page", params.page.toString());
 
 	const queryString = searchParams.toString();
-	const endpoint = queryString
-		? `/api/products?${queryString}`
-		: "/api/products";
+	const endpoint = queryString ? `/api/product?${queryString}` : "/api/product";
 
 	return SafeRequest<ProductListResponse>(endpoint);
 }
@@ -69,7 +67,7 @@ export async function getProducts(
  * Get a single product by ID
  */
 export async function getProductById(id: number): Promise<Product> {
-	return SafeRequest<Product>(`/api/products/${id}`);
+	return SafeRequest<Product>(`/api/product/${id}`);
 }
 
 /**
@@ -79,7 +77,7 @@ export async function updateProduct(
 	id: number,
 	productData: UpdateProductRequest,
 ): Promise<Product> {
-	return SafeRequest<Product>(`/api/products/${id}`, {
+	return SafeRequest<Product>(`/api/product/${id}`, {
 		method: "PUT",
 		body: JSON.stringify(productData),
 	});
@@ -89,7 +87,7 @@ export async function updateProduct(
  * Delete a product by ID
  */
 export async function deleteProduct(id: number): Promise<Product> {
-	return SafeRequest<Product>(`/api/products/${id}`, {
+	return SafeRequest<Product>(`/api/product/${id}`, {
 		method: "DELETE",
 	});
 }

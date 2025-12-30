@@ -6,7 +6,7 @@ services:
     container_name: backend
     restart: unless-stopped
     ports:
-      - "3123:3000"
+      - "3000:3000"
     environment:
       - NODE_ENV=dev
       - DATABASE_URL=postgresql://app_user:app_password@app-postgres-dev:5432/app_dev?schema=public

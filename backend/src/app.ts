@@ -1,9 +1,11 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import productsRoutes from "./routes/products.js";
 import categoriesRoutes from "./routes/categories.js";
 
 const app = new Hono();
 
+app.use("*", cors());
 app.get("/", (c) => {
 	return c.text("Hello Hono!");
 });

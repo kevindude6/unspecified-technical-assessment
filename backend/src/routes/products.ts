@@ -84,8 +84,8 @@ app.post(
 // Query parameter schema for filtering and pagination
 const productQuerySchema = type({
 	"search?": "string",
-	"categoryId?": "number.integer",
-	"page?": "number.integer >= 1",
+	"categoryId?": "string.integer.parse",
+	"page?": "string.integer.parse",
 });
 
 // GET /api/products - Get all products with filtering and pagination
