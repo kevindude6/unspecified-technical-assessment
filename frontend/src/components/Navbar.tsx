@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+type Page = "Home" | "Products" | "Categories";
+
 interface NavbarProps {
-	currentPage: string;
-	onPageChange: (page: string) => void;
+	currentPage: Page;
+	onPageChange: (page: Page) => void;
 }
 
-const pages = ["Home", "Products", "Categories"];
+const pages: Page[] = ["Home", "Products", "Categories"];
 
 export function Navbar({ currentPage, onPageChange }: NavbarProps) {
 	return (

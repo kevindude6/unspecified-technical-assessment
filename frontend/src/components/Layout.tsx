@@ -1,9 +1,11 @@
 import { Navbar } from "./Navbar";
 
+type Page = "Home" | "Products" | "Categories";
+
 interface LayoutProps {
 	children: React.ReactNode;
-	currentPage: string;
-	onPageChange: (page: string) => void;
+	currentPage: Page;
+	onPageChange: (page: Page) => void;
 }
 
 export function Layout({ children, currentPage, onPageChange }: LayoutProps) {
