@@ -132,10 +132,7 @@ export function CategoryPage() {
 
 			{/* Add Category Modal */}
 			{isAddModalOpen && (
-				<CategoryEditModal
-					isOpen={isAddModalOpen}
-					onClose={() => setIsAddModalOpen(false)}
-				/>
+				<CategoryEditModal onClose={() => setIsAddModalOpen(false)} />
 			)}
 
 			{/* Edit Category Modal */}
