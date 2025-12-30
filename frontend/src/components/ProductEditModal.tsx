@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { type } from "arktype";
+import { arktypeResolver } from "@hookform/resolvers/arktype";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +15,18 @@ interface ProductEditModalProps {
 	onClose: () => void;
 }
 
+// ArkType validation schemas based on backend/src/routes/products.ts
+const productUpdateSchema = type({
+	"title?": "1 <= string <= 255",
+	"description?": "1 <= string <= 255",
+	"categoryId?": "number.integer",
+	"price?": "number >= 0",
+	"stock?": "number.integer",
+	"brand?": "1 <= string <= 255",
+	"sku?": "1 <= string <= 255",
+	"weight?": "number > 0",
+});
+
 export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 	const [isOpen, setIsOpen] = useState(true);
 	const { mutate: updateProduct, isPending } = useUpdateProduct();
@@ -20,10 +34,11 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 	const {
 		register,
 		handleSubmit,
-		setValue,
 		watch,
+		setValue,
 		formState: { errors },
 	} = useForm({
+		resolver: arktypeResolver(productUpdateSchema),
 		defaultValues: {
 			title: product.title,
 			description: product.description,
@@ -36,24 +51,11 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 		},
 	});
 
-	const handleCategoryChange = (categoryId: number | undefined) => {
-		setValue("categoryId", categoryId || 0, { shouldValidate: true });
-	};
-
 	const onSubmit = (data: any) => {
 		updateProduct(
 			{
 				id: product.id,
-				data: {
-					title: data.title,
-					description: data.description,
-					categoryId: data.categoryId,
-					price: data.price,
-					stock: data.stock,
-					brand: data.brand,
-					sku: data.sku,
-					weight: data.weight,
-				},
+				data: data,
 			},
 			{
 				onSuccess: () => {
@@ -114,11 +116,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 							</label>
 							<Input
 								id="title"
-								{...register("title", {
-									required: "Title is required",
-									minLength: { value: 1, message: "Title is required" },
-									maxLength: { value: 200, message: "Title too long" },
-								})}
+								{...register("title")}
 								placeholder="Product title"
 							/>
 							{errors.title && (
@@ -132,11 +130,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 							</label>
 							<Input
 								id="brand"
-								{...register("brand", {
-									required: "Brand is required",
-									minLength: { value: 1, message: "Brand is required" },
-									maxLength: { value: 100, message: "Brand too long" },
-								})}
+								{...register("brand")}
 								placeholder="Product brand"
 							/>
 							{errors.brand && (
@@ -148,15 +142,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 							<label htmlFor="sku" className="text-sm font-medium">
 								SKU
 							</label>
-							<Input
-								id="sku"
-								{...register("sku", {
-									required: "SKU is required",
-									minLength: { value: 1, message: "SKU is required" },
-									maxLength: { value: 50, message: "SKU too long" },
-								})}
-								placeholder="Product SKU"
-							/>
+							<Input id="sku" {...register("sku")} placeholder="Product SKU" />
 							{errors.sku && (
 								<p className="text-sm text-red-600">{errors.sku.message}</p>
 							)}
@@ -170,11 +156,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 								id="price"
 								type="number"
 								step="0.01"
-								{...register("price", {
-									required: "Price is required",
-									valueAsNumber: true,
-									min: { value: 0.01, message: "Price must be greater than 0" },
-								})}
+								{...register("price", { valueAsNumber: true })}
 								placeholder="0.00"
 							/>
 							{errors.price && (
@@ -189,11 +171,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 							<Input
 								id="stock"
 								type="number"
-								{...register("stock", {
-									required: "Stock is required",
-									valueAsNumber: true,
-									min: { value: 0, message: "Stock cannot be negative" },
-								})}
+								{...register("stock", { valueAsNumber: true })}
 								placeholder="0"
 							/>
 							{errors.stock && (
@@ -209,14 +187,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 								id="weight"
 								type="number"
 								step="0.01"
-								{...register("weight", {
-									required: "Weight is required",
-									valueAsNumber: true,
-									min: {
-										value: 0.01,
-										message: "Weight must be greater than 0",
-									},
-								})}
+								{...register("weight", { valueAsNumber: true })}
 								placeholder="0.00"
 							/>
 							{errors.weight && (
@@ -231,7 +202,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 						</label>
 						<CategorySelect
 							value={watch("categoryId")}
-							onChange={handleCategoryChange}
+							onChange={(categoryId) => setValue("categoryId", categoryId || 0)}
 							placeholder="Select a category"
 							className="w-full"
 						/>
@@ -248,11 +219,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 						</label>
 						<textarea
 							id="description"
-							{...register("description", {
-								required: "Description is required",
-								minLength: { value: 1, message: "Description is required" },
-								maxLength: { value: 1000, message: "Description too long" },
-							})}
+							{...register("description")}
 							placeholder="Product description"
 							className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-colors file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:border-ring focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
 							rows={4}
