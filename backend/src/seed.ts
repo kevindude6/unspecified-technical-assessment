@@ -12,7 +12,7 @@ async function seed() {
 	}
 
 	console.log("Starting database seed...");
-
+	faker.seed(12345);
 	try {
 		// Clear existing data
 		console.log("Clearing existing data...");
@@ -22,16 +22,12 @@ async function seed() {
 		// Generate 20 categories
 		console.log("Creating 20 categories...");
 		const categories = [];
-		const categoryNames = new Set<string>();
 
 		for (let i = 0; i < 20; i++) {
 			const categoryName = faker.commerce.department();
 
-			// Ensure uniqueness
-			categoryNames.add(`${categoryName}-${i}`);
-
 			categories.push({
-				name: categoryName,
+				name: `${categoryName}-${i}`,
 				description: faker.lorem.sentences(2),
 			});
 		}
