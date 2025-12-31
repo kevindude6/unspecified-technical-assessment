@@ -1,3 +1,42 @@
 {
-  "test": ""
+  "navbar": {
+    "home": "ホーム",
+    "products": "製品",
+    "categories": "カテゴリ",
+    "productApp": "製品アプリ"
+  },
+  "product": {
+    "title": "タイトル",
+    "description": "説明",
+    "category": "カテゴリ",
+    "price": "価格",
+    "stock": "在庫",
+    "brand": "ブランド",
+    "sku": "SKU",
+    "weight": "重量",
+    "delete": "削除",
+    "edit": "編集",
+    "create": "作成",
+    "update": "更新"
+  },
+  "category": {
+    "name": "名前",
+    "description": "説明",
+    "delete": "削除",
+    "edit": "編集",
+    "create": "作成",
+    "update": "更新"
+  },
+  "actions": {
+    "delete": "削除",
+    "edit": "編集",
+    "create": "作成",
+    "update": "更新",
+    "cancel": "キャンセル",
+    "save": "保存"
+  },
+  "confirmation": {
+    "deleteProduct": "製品を削除してもよろしいですか？",
+    "deleteCategory": "カテゴリを削除してもよろしいですか？"
+  }
 }

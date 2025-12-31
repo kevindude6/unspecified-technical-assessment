@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 type Page = "Home" | "Products" | "Categories";
 
@@ -11,13 +12,20 @@ interface NavbarProps {
 const pages: Page[] = ["Home", "Products", "Categories"];
 
 export function Navbar({ currentPage, onPageChange }: NavbarProps) {
+	const { t, i18n } = useTranslation();
+
+	const toggleLanguage = () => {
+		const newLang = i18n.language === "en" ? "ja" : "en";
+		i18n.changeLanguage(newLang);
+	};
+
 	return (
 		<nav className="border-b bg-background">
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				<div className="flex h-16 items-center justify-between">
 					<div className="flex items-center">
 						<Button variant={"link"} onClick={() => onPageChange("Home")}>
-							<h1 className="text-xl font-bold">Product App</h1>
+							<h1 className="text-xl font-bold">{t("navbar.productApp")}</h1>
 						</Button>
 					</div>
 					<div className="flex space-x-4">
@@ -31,9 +39,17 @@ export function Navbar({ currentPage, onPageChange }: NavbarProps) {
 									currentPage === page && "text-accent",
 								)}
 							>
-								{page}
+								{t(`navbar.${page.toLowerCase()}`)}
 							</Button>
 						))}
+						<Button
+							variant="outline"
+							size="sm"
+							onClick={toggleLanguage}
+							className="ml-2"
+						>
+							{i18n.language === "en" ? "English" : "日本語"}
+						</Button>
 					</div>
 				</div>
 			</div>
