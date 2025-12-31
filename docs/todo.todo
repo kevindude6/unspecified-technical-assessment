@@ -4,7 +4,7 @@
 ✔ implement category page @done(25-12-30 21:44)
 ✔ implement new product form - modularize the existing edit product form for this purpose @done(25-12-30 19:25)
 ✔ implement new category / edit category @done(25-12-30 21:44)
-☐ re-implement sorting for products
+✔ re-implement sorting for products @done(25-12-31 15:19)
 ✔ product search isnt considering category name @done(25-12-30 19:25)
 ☐ manually adjust the tanstack hooks to be less complicated
 ☐ move the arktype schemas to a shared common folder?
