@@ -18,7 +18,8 @@
     "edit": "Edit",
     "create": "Create",
     "update": "Update",
-    "browseProducts": "Browse our collection of products"
+    "browseProducts": "Browse our collection of products",
+    "deleting": "Deleting..."
   },
   "category": {
     "name": "Name",

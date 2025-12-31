@@ -12,12 +12,14 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { ProductEditModal } from "./ProductEditModal";
 import type { Product } from "@/lib/models/product";
+import { useTranslation } from "react-i18next";
 
 interface ProductCardProps {
 	product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+	const { t } = useTranslation();
 	const { mutate: deleteProduct, isPending } = useDeleteProduct();
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -57,8 +59,12 @@ export function ProductCard({ product }: ProductCardProps) {
 						{product.description}
 					</p>
 					<div className="mt-2 space-y-1 text-sm text-muted-foreground">
-						<div>Brand: {product.brand}</div>
-						<div>Stock: {product.stock}</div>
+						<div>
+							{t("product.brand")}: {product.brand}
+						</div>
+						<div>
+							{t("product.stock")}: {product.stock}
+						</div>
 					</div>
 				</CardContent>
 
@@ -66,7 +72,7 @@ export function ProductCard({ product }: ProductCardProps) {
 					<span className="text-lg font-bold">${product.price.toFixed(2)}</span>
 					<div className="flex gap-2">
 						<Button size="sm" variant="outline" onClick={handleEdit}>
-							Edit
+							{t("product.edit")}
 						</Button>
 						<Button
 							size="sm"
@@ -74,7 +80,7 @@ export function ProductCard({ product }: ProductCardProps) {
 							onClick={handleDelete}
 							disabled={isPending}
 						>
-							{isPending ? "Deleting..." : "Delete"}
+							{isPending ? t("product.deleting") : t("product.delete")}
 						</Button>
 					</div>
 				</CardFooter>

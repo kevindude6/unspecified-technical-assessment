@@ -18,7 +18,8 @@
     "edit": "編集",
     "create": "作成",
     "update": "更新",
-    "browseProducts": "製品のコレクションを閲覧"
+    "browseProducts": "製品のコレクションを閲覧",
+    "deleting": "削除中..."
   },
   "category": {
     "name": "名前",
