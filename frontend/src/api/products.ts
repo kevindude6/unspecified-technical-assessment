@@ -30,6 +30,16 @@ export interface ProductQueryParams {
 	search?: string;
 	categoryId?: number;
 	page?: number;
+	sortBy?:
+		| "id"
+		| "title"
+		| "price"
+		| "stock"
+		| "brand"
+		| "createdAt"
+		| "updatedAt"
+		| "categoryName";
+	sortOrder?: "asc" | "desc";
 }
 
 /**
@@ -45,7 +55,7 @@ export async function createProduct(
 }
 
 /**
- * Get all products with optional filtering and pagination
+ * Get all products with optional filtering, sorting, and pagination
  */
 export async function getProducts(
 	params?: ProductQueryParams,
@@ -56,6 +66,8 @@ export async function getProducts(
 	if (params?.categoryId)
 		searchParams.append("categoryId", params.categoryId.toString());
 	if (params?.page) searchParams.append("page", params.page.toString());
+	if (params?.sortBy) searchParams.append("sortBy", params.sortBy);
+	if (params?.sortOrder) searchParams.append("sortOrder", params.sortOrder);
 
 	const queryString = searchParams.toString();
 	const endpoint = queryString ? `/api/product?${queryString}` : "/api/product";

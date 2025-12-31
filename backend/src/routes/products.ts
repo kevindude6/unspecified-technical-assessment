@@ -88,9 +88,11 @@ const productQuerySchema = type({
 	"search?": "string",
 	"categoryId?": "string.integer.parse",
 	"page?": "string.integer.parse",
+	"sortBy?": "string",
+	"sortOrder?": "'asc' | 'desc'",
 });
 
-// GET /api/products - Get all products with filtering and pagination
+// GET /api/products - Get all products with filtering, sorting, and pagination
 app.get(
 	"/",
 	sValidator("query", productQuerySchema, (result, c) => {
@@ -101,7 +103,13 @@ app.get(
 	async (c) => {
 		try {
 			const QUERY_LIMIT = 30;
-			const { search, categoryId, page = 1 } = c.req.valid("query");
+			const {
+				search,
+				categoryId,
+				page = 1,
+				sortBy,
+				sortOrder,
+			} = c.req.valid("query");
 
 			// Build where clause for filtering
 			// biome-ignore lint/suspicious/noExplicitAny: need to allow this
@@ -138,6 +146,36 @@ app.get(
 				where.categoryId = categoryId;
 			}
 
+			// Build orderBy clause for sorting
+			// Default to sorting by ID descending (newest first)
+			let orderBy: any = { id: "desc" };
+
+			if (sortBy && sortOrder) {
+				// Define valid sort fields
+				const validSortFields = [
+					"id",
+					"title",
+					"price",
+					"stock",
+					"brand",
+					"createdAt",
+					"updatedAt",
+				];
+
+				if (validSortFields.includes(sortBy)) {
+					// Handle nested fields (category.name)
+					if (sortBy === "categoryName") {
+						orderBy = {
+							category: {
+								name: sortOrder,
+							},
+						};
+					} else {
+						orderBy = { [sortBy]: sortOrder };
+					}
+				}
+			}
+
 			// Calculate pagination
 			const skip = (page - 1) * QUERY_LIMIT;
 			const take = QUERY_LIMIT;
@@ -145,7 +183,7 @@ app.get(
 			// Get total count for pagination metadata
 			const total = await prisma.product.count({ where });
 
-			// Get products with filtering and pagination
+			// Get products with filtering, sorting, and pagination
 			const products = await prisma.product.findMany({
 				where,
 				include: {
@@ -153,9 +191,7 @@ app.get(
 				},
 				skip,
 				take,
-				orderBy: {
-					id: "desc", // Show newest products first
-				},
+				orderBy,
 			});
 
 			// Calculate pagination metadata
