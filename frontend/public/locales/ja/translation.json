@@ -52,5 +52,15 @@
     "loadingCategories": "カテゴリを読み込み中...",
     "allCategories": "すべてのカテゴリ",
     "failedToLoadCategories": "カテゴリの読み込みに失敗しました。再度お試しください。"
+  },
+  "productFilter": {
+    "searchPlaceholder": "製品を検索...",
+    "sortByPlaceholder": "並べ替え",
+    "sortByName": "名前で並べ替え",
+    "sortByPrice": "価格で並べ替え",
+    "sortByStock": "在庫で並べ替え",
+    "ascending": "昇順",
+    "descending": "降順",
+    "categoryPlaceholder": "カテゴリを選択"
   }
 }

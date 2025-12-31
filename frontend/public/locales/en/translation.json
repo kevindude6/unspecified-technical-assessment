@@ -52,5 +52,15 @@
     "loadingCategories": "Loading categories...",
     "allCategories": "All Categories",
     "failedToLoadCategories": "Failed to load categories. Please try again."
+  },
+  "productFilter": {
+    "searchPlaceholder": "Search products...",
+    "sortByPlaceholder": "Sort by",
+    "sortByName": "Sort by Name",
+    "sortByPrice": "Sort by Price",
+    "sortByStock": "Sort by Stock",
+    "ascending": "Ascending",
+    "descending": "Descending",
+    "categoryPlaceholder": "Select a category"
   }
 }

@@ -11,6 +11,7 @@ import {
 } from "./ui/select";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import type { SortTerm, SortOrder } from "./ProductPage";
+import { useTranslation } from "react-i18next";
 
 interface ProductFilterProps {
 	onSearch: (searchTerm: string) => void;
@@ -27,6 +28,7 @@ export function ProductFilter({
 	const [sortBy, setSortBy] = useState<SortTerm>("title");
 	const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
 	const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
+	const { t } = useTranslation();
 
 	const handleSort = (newSortBy: string) => {
 		setSortBy(newSortBy as SortTerm);
@@ -49,7 +51,7 @@ export function ProductFilter({
 			<div className="flex flex-col sm:flex-row gap-4">
 				<div className="flex-1">
 					<Input
-						placeholder="Search products..."
+						placeholder={t("productFilter.searchPlaceholder")}
 						value={searchTerm}
 						onChange={(e) => {
 							setSearchTerm(e.target.value);
@@ -62,18 +64,25 @@ export function ProductFilter({
 					value={categoryId}
 					onChange={handleCategoryFilter}
 					className="w-full sm:w-64"
+					placeholder={t("productFilter.categoryPlaceholder")}
 				/>
 			</div>
 
 			<div className="flex flex-wrap gap-2">
 				<Select value={sortBy} onValueChange={handleSort}>
 					<SelectTrigger className="w-[200px]">
-						<SelectValue placeholder="Sort by" />
+						<SelectValue placeholder={t("productFilter.sortByPlaceholder")} />
 					</SelectTrigger>
 					<SelectContent>
-						<SelectItem value="title">Sort by Name</SelectItem>
-						<SelectItem value="price">Sort by Price</SelectItem>
-						<SelectItem value="stock">Sort by Stock</SelectItem>
+						<SelectItem value="title">
+							{t("productFilter.sortByName")}
+						</SelectItem>
+						<SelectItem value="price">
+							{t("productFilter.sortByPrice")}
+						</SelectItem>
+						<SelectItem value="stock">
+							{t("productFilter.sortByStock")}
+						</SelectItem>
 					</SelectContent>
 				</Select>
 				<Button
@@ -87,7 +96,9 @@ export function ProductFilter({
 					) : (
 						<ArrowDown className="h-4 w-4" />
 					)}
-					{sortOrder === "asc" ? "Ascending" : "Descending"}
+					{sortOrder === "asc"
+						? t("productFilter.ascending")
+						: t("productFilter.descending")}
 				</Button>
 			</div>
 		</div>
