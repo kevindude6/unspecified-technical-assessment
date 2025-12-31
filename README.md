@@ -1,9 +1,13 @@
 ## Getting Started
+### Summary
+This is a simple application to allow users to manage product stock, presumably for some kind of store. It consists of a web based UI, a Nodejs API server, and a Postgres DB.
+
 ### Prerequisites
 - Node v24
 - pnpm (_npm should work, but untested_)
 - docker (I use docker desktop)
 - docker compose (Included in docker desktop)
+
 ### Run Procedure
 1. Clone repo
 2. Cd to /backend
@@ -11,6 +15,22 @@
 3. Run "pnpm run db:dev:migrate"
 4. Run "pnpm run seed"
 5. Access localhost:3000 in browser
+
+## Functionality
+Users can
+- Create products
+- Browse products
+  - Search, filter, sort products
+- Edit Products
+- Delete Products
+- Create categories
+- Browse categories
+- Edit categories
+- Delete categories
+
+via the web UI.
+
+The API server exposes functions for CRUD operations of both products and categories.
 
 ## Architecture Overview
 - React SPA for UI
@@ -42,5 +62,13 @@ The API server uses **Node + Hono** for serving content. Hono was specified in t
 **Postgres** for the database. I think, generally, Postgres should be the first DB developers reach for. It is powerful, flexible, and shockingly fast. It is even quite good at storing document-style data with its JsonB columns.
 
 There is an argument to be made that postgres is _too_ much for this small application, but I decided it was worth it. Initial setup is not too difficult, and it future-proofs us for a long time to come.
+
+**Arktype** for validation both in frontend and backend. While Zod is industry standard, I feel that Arktype provides a much better developer experience. 
+
+**Biome** for formatting and linting. I do not like ESLint, I have never had a good experience using it.
+For formatting, I generally use Prettier, but I wanted to try Biome due to its linter + formatter nature.
+
+This was my first time using Biome, and overall it was quite good. However, the official VS code extension does not work in a monorepo workspace, so I had to install an unofficial one. A bit annoying, but not insurmountable.
+
 
 
