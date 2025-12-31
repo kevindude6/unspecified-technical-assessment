@@ -23,6 +23,7 @@ RUN pnpm install --frozen-lockfile
 
 COPY ./backend  ./
 
+RUN pnpm prisma generate
 RUN pnpm build
 
 # Production image, copy all the files and run next
