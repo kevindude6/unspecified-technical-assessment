@@ -32,8 +32,9 @@ export function ProductPage() {
 		setCurrentPage(1); // Reset to first page when searching
 	};
 
-	const handleSort = (newSortBy: SortTerm) => {
+	const handleSort = (newSortBy: SortTerm, newSortOrder: SortOrder) => {
 		setSortBy(newSortBy);
+		setSortOrder(newSortOrder);
 	};
 
 	const handleCategoryFilter = (categoryId: number | undefined) => {

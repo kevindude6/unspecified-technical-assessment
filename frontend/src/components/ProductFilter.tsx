@@ -9,11 +9,12 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "./ui/select";
-import type { SortTerm } from "./ProductPage";
+import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import type { SortTerm, SortOrder } from "./ProductPage";
 
 interface ProductFilterProps {
 	onSearch: (searchTerm: string) => void;
-	onSort: (sortBy: SortTerm) => void;
+	onSort: (sortBy: SortTerm, sortOrder: SortOrder) => void;
 	onCategoryFilter: (categoryId: number | undefined) => void;
 }
 
@@ -24,11 +25,18 @@ export function ProductFilter({
 }: ProductFilterProps) {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [sortBy, setSortBy] = useState<SortTerm>("title");
+	const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
 	const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
 
 	const handleSort = (newSortBy: string) => {
 		setSortBy(newSortBy as SortTerm);
-		onSort(newSortBy as SortTerm);
+		onSort(newSortBy as SortTerm, sortOrder);
+	};
+
+	const handleSortOrderToggle = () => {
+		const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+		setSortOrder(newSortOrder);
+		onSort(sortBy, newSortOrder);
 	};
 
 	const handleCategoryFilter = (newCategoryId: number | undefined) => {
@@ -68,6 +76,19 @@ export function ProductFilter({
 						<SelectItem value="stock">Sort by Stock</SelectItem>
 					</SelectContent>
 				</Select>
+				<Button
+					variant="outline"
+					size="sm"
+					onClick={handleSortOrderToggle}
+					className="flex items-center gap-2"
+				>
+					{sortOrder === "asc" ? (
+						<ArrowUp className="h-4 w-4" />
+					) : (
+						<ArrowDown className="h-4 w-4" />
+					)}
+					{sortOrder === "asc" ? "Ascending" : "Descending"}
+				</Button>
 			</div>
 		</div>
 	);
