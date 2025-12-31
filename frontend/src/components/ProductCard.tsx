@@ -56,6 +56,10 @@ export function ProductCard({ product }: ProductCardProps) {
 					<p className="text-sm text-muted-foreground line-clamp-2">
 						{product.description}
 					</p>
+					<div className="mt-2 space-y-1 text-sm text-muted-foreground">
+						<div>Brand: {product.brand}</div>
+						<div>Stock: {product.stock}</div>
+					</div>
 				</CardContent>
 
 				<CardFooter className="flex justify-between items-center">
