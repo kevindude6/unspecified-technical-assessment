@@ -1,4 +1,5 @@
 import type { Category } from "../lib/models/category";
+import { useTranslation } from "react-i18next";
 
 interface CategoryDeleteModalProps {
 	category: Category | null;
@@ -15,6 +16,8 @@ export function CategoryDeleteModal({
 	onConfirm,
 	onCancel,
 }: CategoryDeleteModalProps) {
+	const { t } = useTranslation();
+
 	if (!isOpen || !category) {
 		return null;
 	}
@@ -29,7 +32,7 @@ export function CategoryDeleteModal({
 				}`}
 				onClick={onCancel}
 				onKeyUp={(e) => e.key === "Escape" && onCancel()}
-				aria-label="Close modal"
+				aria-label={t("categoryDeleteModal.closeModal")}
 			/>
 
 			{/* Modal */}
@@ -41,13 +44,13 @@ export function CategoryDeleteModal({
 				{/* Modal Header */}
 				<div className="flex items-center justify-between border-b px-6 py-4">
 					<h2 className="text-lg font-semibold text-red-600">
-						Confirm Deletion
+						{t("categoryDeleteModal.confirmDeletion")}
 					</h2>
 					<button
 						type="button"
 						onClick={onCancel}
 						className="text-muted-foreground hover:text-foreground"
-						aria-label="Close modal"
+						aria-label={t("categoryDeleteModal.closeModal")}
 					>
 						×
 					</button>
@@ -73,18 +76,21 @@ export function CategoryDeleteModal({
 							</svg>
 						</div>
 						<div>
-							<h3 className="font-medium">Delete "{category.name}"?</h3>
+							<h3 className="font-medium">
+								{t("categoryDeleteModal.deleteCategory", {
+									name: category.name,
+								})}
+							</h3>
 							<p className="text-sm text-muted-foreground mt-1">
-								This action cannot be undone. All products associated with this
-								category will also be deleted.
+								{t("categoryDeleteModal.cannotBeUndone")}
 							</p>
 						</div>
 					</div>
 
 					<div className="bg-yellow-50 border border-yellow-200 rounded-md p-3">
 						<p className="text-sm text-yellow-800">
-							<strong>Warning:</strong> Deleting this category will permanently
-							remove all products that belong to it.
+							<strong>{t("categoryDeleteModal.warning")}:</strong>{" "}
+							{t("categoryDeleteModal.deleteWarning")}
 						</p>
 					</div>
 
@@ -95,7 +101,7 @@ export function CategoryDeleteModal({
 							onClick={onCancel}
 							className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3"
 						>
-							Cancel
+							{t("actions.cancel")}
 						</button>
 						<button
 							type="button"
@@ -103,7 +109,9 @@ export function CategoryDeleteModal({
 							disabled={isDeleting}
 							className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-red-600 text-white hover:bg-red-700 h-9 px-3"
 						>
-							{isDeleting ? "Deleting..." : "Delete Category"}
+							{isDeleting
+								? t("product.deleting")
+								: t("categoryDeleteModal.deleteCategoryButton")}
 						</button>
 					</div>
 				</div>

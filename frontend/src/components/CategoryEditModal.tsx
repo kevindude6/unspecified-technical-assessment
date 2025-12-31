@@ -8,6 +8,7 @@ import { useUpdateCategory } from "@/api/category-hooks";
 import { useCreateCategory } from "@/api/category-hooks";
 import { toast } from "sonner";
 import type { Category } from "@/lib/models/category";
+import { useTranslation } from "react-i18next";
 
 interface CategoryEditModalProps {
 	category?: Category;
@@ -33,6 +34,7 @@ export function CategoryEditModal({
 	const { mutate: createCategory, isPending: isCreating } = useCreateCategory();
 	const isEditing = !!category;
 	const isPending = isUpdating || isCreating;
+	const { t } = useTranslation();
 
 	const {
 		register,
@@ -57,22 +59,26 @@ export function CategoryEditModal({
 				},
 				{
 					onSuccess: () => {
-						toast.success("Category updated successfully");
+						toast.success(t("categoryEditModal.successUpdate"));
 						onClose();
 					},
 					onError: (error) => {
-						toast.error(`Failed to update category: ${error.message}`);
+						toast.error(
+							t("categoryEditModal.errorUpdate", { message: error.message }),
+						);
 					},
 				},
 			);
 		} else {
 			createCategory(data, {
 				onSuccess: () => {
-					toast.success("Category created successfully");
+					toast.success(t("categoryEditModal.successCreate"));
 					onClose();
 				},
 				onError: (error) => {
-					toast.error(`Failed to create category: ${error.message}`);
+					toast.error(
+						t("categoryEditModal.errorCreate", { message: error.message }),
+					);
 				},
 			});
 		}
@@ -91,7 +97,7 @@ export function CategoryEditModal({
 				className="fixed inset-0 min-h-screen bg-black/50 backdrop-blur-sm transition-opacity duration-200 opacity-100"
 				onClick={handleClose}
 				onKeyUp={(e) => e.key === "Escape" && handleClose()}
-				aria-label="Close modal"
+				aria-label={t("categoryEditModal.closeModal")}
 			/>
 
 			{/* Modal */}
@@ -99,7 +105,9 @@ export function CategoryEditModal({
 				{/* Modal Header */}
 				<div className="flex items-center justify-between border-b px-6 py-4">
 					<h2 className="text-lg font-semibold">
-						{isEditing ? "Edit Category" : "Add Category"}
+						{isEditing
+							? t("categoryEditModal.editCategory")
+							: t("categoryEditModal.addCategory")}
 					</h2>
 					<Button
 						variant="ghost"
@@ -115,12 +123,12 @@ export function CategoryEditModal({
 				<form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-6">
 					<div className="space-y-2">
 						<label htmlFor="name" className="text-sm font-medium">
-							Name
+							{t("category.name")}
 						</label>
 						<Input
 							id="name"
 							{...register("name")}
-							placeholder="Category name"
+							placeholder={t("categoryEditModal.placeholderName")}
 						/>
 						{errors.name && (
 							<p className="text-sm text-red-600">{errors.name.message}</p>
@@ -129,12 +137,12 @@ export function CategoryEditModal({
 
 					<div className="space-y-2">
 						<label htmlFor="description" className="text-sm font-medium">
-							Description
+							{t("category.description")}
 						</label>
 						<textarea
 							id="description"
 							{...register("description")}
-							placeholder="Category description"
+							placeholder={t("categoryEditModal.placeholderDescription")}
 							className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-colors file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:border-ring focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
 							rows={3}
 						/>
@@ -153,16 +161,16 @@ export function CategoryEditModal({
 							onClick={handleClose}
 							disabled={isPending}
 						>
-							Cancel
+							{t("actions.cancel")}
 						</Button>
 						<Button type="submit" disabled={isPending}>
 							{isPending
 								? isEditing
-									? "Updating..."
-									: "Creating..."
+									? t("categoryEditModal.updating")
+									: t("categoryEditModal.creating")
 								: isEditing
-									? "Update Category"
-									: "Create Category"}
+									? t("categoryEditModal.updateCategory")
+									: t("categoryEditModal.createCategory")}
 						</Button>
 					</div>
 				</form>

@@ -4,6 +4,7 @@ import { CategoryEditModal } from "./CategoryEditModal";
 import { CategoryDeleteModal } from "./CategoryDeleteModal";
 import { toast } from "sonner";
 import type { Category } from "../lib/models/category";
+import { useTranslation } from "react-i18next";
 
 export function CategoryPage() {
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -12,6 +13,7 @@ export function CategoryPage() {
 		null,
 	);
 	const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+	const { t } = useTranslation();
 
 	const { data, isLoading, error } = useCategories();
 	const { mutate: deleteCategory, isPending: isDeleting } = useDeleteCategory();
@@ -26,12 +28,14 @@ export function CategoryPage() {
 
 		deleteCategory(deletingCategory.id, {
 			onSuccess: () => {
-				toast.success("Category deleted successfully");
+				toast.success(t("categoryEditModal.successDelete"));
 				setDeletingCategory(null);
 				setShowDeleteWarning(false);
 			},
 			onError: (error) => {
-				toast.error(`Failed to delete category: ${error.message}`);
+				toast.error(
+					t("categoryEditModal.errorDelete", { message: error.message }),
+				);
 				setDeletingCategory(null);
 				setShowDeleteWarning(false);
 			},
@@ -47,7 +51,7 @@ export function CategoryPage() {
 		if (isLoading)
 			return (
 				<div className="text-center py-12">
-					<p className="text-muted-foreground">Loading categories...</p>
+					<p className="text-muted-foreground">{t("common.loadingProducts")}</p>
 				</div>
 			);
 
@@ -55,7 +59,7 @@ export function CategoryPage() {
 			return (
 				<div className="text-center py-12">
 					<p className="text-red-500">
-						Error loading categories: {error?.message}
+						{t("common.errorLoadingProducts")}: {error?.message}
 					</p>
 				</div>
 			);
@@ -63,9 +67,11 @@ export function CategoryPage() {
 		if (data.categories.length === 0)
 			return (
 				<div className="text-center py-12">
-					<p className="text-muted-foreground">No categories found.</p>
+					<p className="text-muted-foreground">
+						{t("category.noCategoriesFound")}
+					</p>
 					<p className="text-sm text-muted-foreground mt-2">
-						Create your first category to get started.
+						{t("category.createFirstCategory")}
 					</p>
 				</div>
 			);
@@ -89,7 +95,7 @@ export function CategoryPage() {
 								onClick={() => setEditingCategory(category)}
 								className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3"
 							>
-								Edit
+								{t("category.edit")}
 							</button>
 							<button
 								type="button"
@@ -98,8 +104,8 @@ export function CategoryPage() {
 								className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3"
 							>
 								{isDeleting && deletingCategory?.id === category.id
-									? "Deleting..."
-									: "Delete"}
+									? t("product.deleting")
+									: t("category.delete")}
 							</button>
 						</div>
 					</div>
@@ -113,9 +119,11 @@ export function CategoryPage() {
 			<div>
 				<div className="flex justify-between items-center">
 					<div>
-						<h1 className="text-3xl font-bold mb-2">Categories</h1>
+						<h1 className="text-3xl font-bold mb-2">
+							{t("navbar.categories")}
+						</h1>
 						<p className="text-muted-foreground">
-							Manage your product categories
+							{t("category.manageCategories")}
 						</p>
 					</div>
 					<button
@@ -123,7 +131,7 @@ export function CategoryPage() {
 						onClick={() => setIsAddModalOpen(true)}
 						className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
 					>
-						Add Category
+						{t("category.add")}
 					</button>
 				</div>
 			</div>

@@ -21,14 +21,6 @@
     "browseProducts": "Browse our collection of products",
     "deleting": "Deleting..."
   },
-  "category": {
-    "name": "Name",
-    "description": "Description",
-    "delete": "Delete",
-    "edit": "Edit",
-    "create": "Create",
-    "update": "Update"
-  },
   "actions": {
     "delete": "Delete",
     "edit": "Edit",
@@ -90,5 +82,43 @@
     "howCanWeHelp": "How can we help?",
     "browseProducts": "Browse Products",
     "browseCategories": "Browse Categories"
+  },
+  "category": {
+    "name": "Name",
+    "description": "Description",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "noCategoriesFound": "No categories found.",
+    "createFirstCategory": "Create your first category to get started.",
+    "manageCategories": "Manage your product categories",
+    "add": "Add Category"
+  },
+  "categoryEditModal": {
+    "successUpdate": "Category updated successfully",
+    "errorUpdate": "Failed to update category: {{message}}",
+    "successCreate": "Category created successfully",
+    "errorCreate": "Failed to create category: {{message}}",
+    "successDelete": "Category deleted successfully",
+    "errorDelete": "Failed to delete category: {{message}}",
+    "closeModal": "Close modal",
+    "editCategory": "Edit Category",
+    "addCategory": "Add Category",
+    "placeholderName": "Category name",
+    "placeholderDescription": "Category description",
+    "updating": "Updating...",
+    "creating": "Creating...",
+    "updateCategory": "Update Category",
+    "createCategory": "Create Category"
+  },
+  "categoryDeleteModal": {
+    "confirmDeletion": "Confirm Deletion",
+    "closeModal": "Close modal",
+    "deleteCategory": "Delete \"{{name}}\"?",
+    "cannotBeUndone": "This action cannot be undone. All products associated with this category will also be deleted.",
+    "warning": "Warning",
+    "deleteWarning": "Deleting this category will permanently remove all products that belong to it.",
+    "deleteCategoryButton": "Delete Category"
   }
 }

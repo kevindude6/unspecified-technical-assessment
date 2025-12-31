@@ -21,14 +21,6 @@
     "browseProducts": "製品のコレクションを閲覧",
     "deleting": "削除中..."
   },
-  "category": {
-    "name": "名前",
-    "description": "説明",
-    "delete": "削除",
-    "edit": "編集",
-    "create": "作成",
-    "update": "更新"
-  },
   "actions": {
     "delete": "削除",
     "edit": "編集",
@@ -90,5 +82,43 @@
     "howCanWeHelp": "どのようにお手伝いできますか？",
     "browseProducts": "製品を閲覧",
     "browseCategories": "カテゴリを閲覧"
+  },
+  "category": {
+    "name": "名前",
+    "description": "説明",
+    "delete": "削除",
+    "edit": "編集",
+    "create": "作成",
+    "update": "更新",
+    "noCategoriesFound": "カテゴリが見つかりません。",
+    "createFirstCategory": "最初のカテゴリを作成して始めましょう。",
+    "manageCategories": "製品カテゴリを管理",
+    "add": "カテゴリを追加"
+  },
+  "categoryEditModal": {
+    "successUpdate": "カテゴリが正常に更新されました",
+    "errorUpdate": "カテゴリの更新に失敗しました: {{message}}",
+    "successCreate": "カテゴリが正常に作成されました",
+    "errorCreate": "カテゴリの作成に失敗しました: {{message}}",
+    "successDelete": "カテゴリが正常に削除されました",
+    "errorDelete": "カテゴリの削除に失敗しました: {{message}}",
+    "closeModal": "モーダルを閉じる",
+    "editCategory": "カテゴリを編集",
+    "addCategory": "カテゴリを追加",
+    "placeholderName": "カテゴリ名",
+    "placeholderDescription": "カテゴリの説明",
+    "updating": "更新中...",
+    "creating": "作成中...",
+    "updateCategory": "カテゴリを更新",
+    "createCategory": "カテゴリを作成"
+  },
+  "categoryDeleteModal": {
+    "confirmDeletion": "削除の確認",
+    "closeModal": "モーダルを閉じる",
+    "deleteCategory": "\"{{name}}\"を削除しますか？",
+    "cannotBeUndone": "この操作は元に戻せません。このカテゴリに属するすべての製品も削除されます。",
+    "warning": "警告",
+    "deleteWarning": "このカテゴリを削除すると、それに属するすべての製品が永久に削除されます。",
+    "deleteCategoryButton": "カテゴリを削除"
   }
 }
