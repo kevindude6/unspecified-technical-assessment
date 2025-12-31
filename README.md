@@ -21,11 +21,12 @@ This procedure will build the Docker image and run it locally, along with a Post
    NODE_ENV="dev"
    ```
    _In a real application, this would be secret, so I have excluded it from the repo_
-
-4. Run `docker compose up -d`
-5. Run `pnpm run db:dev:migrate`
-6. Run `pnpm run seed`
-7. Access `localhost:3000` in browser
+4. Run `pnpm install`
+5. Run `pnpm prisma generate`
+6. Run `docker compose up -d`
+7. Run `pnpm run db:dev:migrate`
+8. Run `pnpm run seed`
+9. Access `localhost:3000` in browser
 
 ### Testing
 Testing requires a local PostgreSQL instance to work with, so we must spin that up.
