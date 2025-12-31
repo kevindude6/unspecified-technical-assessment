@@ -5,19 +5,12 @@ import { Pagination } from "./Pagination";
 import { ProductEditModal } from "./ProductEditModal";
 import { useProducts } from "../api/product-hooks";
 
+export type SortTerm = "title" | "price" | "stock" | "categoryName";
+export type SortOrder = "asc" | "desc";
 export function ProductPage() {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [sortBy, setSortBy] = useState<
-		| "id"
-		| "title"
-		| "price"
-		| "stock"
-		| "brand"
-		| "createdAt"
-		| "updatedAt"
-		| "categoryName"
-	>("title");
-	const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+	const [sortBy, setSortBy] = useState<SortTerm>("title");
+	const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
 	const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -39,8 +32,8 @@ export function ProductPage() {
 		setCurrentPage(1); // Reset to first page when searching
 	};
 
-	const handleSort = (newSortBy: string) => {
-		setSortBy(newSortBy as any);
+	const handleSort = (newSortBy: SortTerm) => {
+		setSortBy(newSortBy);
 	};
 
 	const handleCategoryFilter = (categoryId: number | undefined) => {

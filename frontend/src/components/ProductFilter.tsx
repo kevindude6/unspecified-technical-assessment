@@ -9,10 +9,11 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "./ui/select";
+import type { SortTerm } from "./ProductPage";
 
 interface ProductFilterProps {
 	onSearch: (searchTerm: string) => void;
-	onSort: (sortBy: string) => void;
+	onSort: (sortBy: SortTerm) => void;
 	onCategoryFilter: (categoryId: number | undefined) => void;
 }
 
@@ -22,12 +23,12 @@ export function ProductFilter({
 	onCategoryFilter,
 }: ProductFilterProps) {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [sortBy, setSortBy] = useState("title");
+	const [sortBy, setSortBy] = useState<SortTerm>("title");
 	const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
 
 	const handleSort = (newSortBy: string) => {
-		setSortBy(newSortBy);
-		onSort(newSortBy);
+		setSortBy(newSortBy as SortTerm);
+		onSort(newSortBy as SortTerm);
 	};
 
 	const handleCategoryFilter = (newCategoryId: number | undefined) => {
@@ -64,10 +65,7 @@ export function ProductFilter({
 					<SelectContent>
 						<SelectItem value="title">Sort by Name</SelectItem>
 						<SelectItem value="price">Sort by Price</SelectItem>
-						<SelectItem value="createdAt">Sort by Date</SelectItem>
 						<SelectItem value="stock">Sort by Stock</SelectItem>
-						<SelectItem value="brand">Sort by Brand</SelectItem>
-						<SelectItem value="categoryName">Sort by Category</SelectItem>
 					</SelectContent>
 				</Select>
 			</div>
