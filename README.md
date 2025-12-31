@@ -123,6 +123,11 @@ Further, and likely more controversial, I prefer to always return collections. N
 - `docker-compose down -v` will wipe the volumes
 - Current docker-compose dev file is persisted in a volume, but without a specific path. This would need to be changed in a real scenario
 
+## Additional Feature
+The assessment requests an additional feature. I added i18n translation, so you can toggle between English and Japanese (machine translated) 
+
+I thought it would be neat and it wasn't too hard.
+
 ## Meta Commentary
 This was a tough assessment. Not that the functionality is difficult, but the "plan to spend 60-90 minutes" confuses me. While there are "no extra points" for being faster or slower, the assessment also suggests treating it like a real project that will be onboarding other developers. That means, to me, laying a strong foundation and choosing the right tools for the job. I don't think that can be done in 90 minutes.
 
