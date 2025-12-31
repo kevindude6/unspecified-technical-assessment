@@ -4,10 +4,12 @@ import { ProductGrid } from "./ProductGrid";
 import { Pagination } from "./Pagination";
 import { ProductEditModal } from "./ProductEditModal";
 import { useProducts } from "../api/product-hooks";
+import { useTranslation } from "react-i18next";
 
 export type SortTerm = "title" | "price" | "stock" | "categoryName";
 export type SortOrder = "asc" | "desc";
 export function ProductPage() {
+	const { t } = useTranslation();
 	const [searchTerm, setSearchTerm] = useState("");
 	const [sortBy, setSortBy] = useState<SortTerm>("title");
 	const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
@@ -50,7 +52,7 @@ export function ProductPage() {
 		if (isLoading)
 			return (
 				<div className="text-center py-12">
-					<p className="text-muted-foreground">Loading products...</p>
+					<p className="text-muted-foreground">{t("common.loadingProducts")}</p>
 				</div>
 			);
 
@@ -58,7 +60,7 @@ export function ProductPage() {
 			return (
 				<div className="text-center py-12">
 					<p className="text-red-500">
-						Error loading products: {error?.message}
+						{t("common.errorLoadingProducts")}: {error?.message}
 					</p>
 				</div>
 			);
@@ -67,11 +69,11 @@ export function ProductPage() {
 			<div>
 				<div className="flex justify-between items-center mb-4">
 					<div className="text-sm text-muted-foreground">
-						Showing page {productsData.pagination.currentPage} of{" "}
-						{productsData.pagination.totalPages}
+						{t("common.showingPage")} {productsData.pagination.currentPage}{" "}
+						{t("common.of")} {productsData.pagination.totalPages}
 					</div>
 					<div className="text-sm text-muted-foreground">
-						Total products: {productsData.pagination.totalItems}
+						{t("common.totalProducts")}: {productsData.pagination.totalItems}
 					</div>
 				</div>
 				<ProductGrid products={productsData.products} />
@@ -84,9 +86,9 @@ export function ProductPage() {
 			<div>
 				<div className="flex justify-between items-center">
 					<div>
-						<h1 className="text-3xl font-bold mb-2">Products</h1>
+						<h1 className="text-3xl font-bold mb-2">{t("navbar.products")}</h1>
 						<p className="text-muted-foreground">
-							Browse our collection of products
+							{t("product.browseProducts")}
 						</p>
 					</div>
 					<button
@@ -94,7 +96,7 @@ export function ProductPage() {
 						onClick={() => setIsAddModalOpen(true)}
 						className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
 					>
-						Add Product
+						{t("product.create")}
 					</button>
 				</div>
 			</div>

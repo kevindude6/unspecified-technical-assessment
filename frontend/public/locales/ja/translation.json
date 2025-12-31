@@ -17,7 +17,8 @@
     "delete": "削除",
     "edit": "編集",
     "create": "作成",
-    "update": "更新"
+    "update": "更新",
+    "browseProducts": "製品のコレクションを閲覧"
   },
   "category": {
     "name": "名前",
@@ -34,6 +35,13 @@
     "update": "更新",
     "cancel": "キャンセル",
     "save": "保存"
+  },
+  "common": {
+    "loadingProducts": "製品を読み込み中...",
+    "errorLoadingProducts": "製品の読み込みエラー",
+    "showingPage": "ページ表示",
+    "of": "の",
+    "totalProducts": "総製品数"
   },
   "confirmation": {
     "deleteProduct": "製品を削除してもよろしいですか？",
