@@ -116,4 +116,4 @@ I know there is a heavy AI emphasis, but even with A LOT of AI use it still took
 
 That's not to say this is perfect, _(by no means is this perfect)_ but I think I found a good balance of quality to time pressure.
 
-Anyway, this was good practice and a good full-stack refresher. I think it is easy to get locked into whatever technologies your day job uses, so it is nice to read up and try new things now and then.
+Anyway, this was good practice and a good full-stack refresher, so I didn't mind spending the time on it. I think it is easy to get locked into whatever technologies your day job uses, so it is nice to read up and try new things now and then.
