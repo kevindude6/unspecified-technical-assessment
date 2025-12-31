@@ -4,10 +4,12 @@ import { Layout } from "./components/Layout";
 import { ProductPage } from "./components/ProductPage";
 import { CategoryPage } from "./components/CategoryPage";
 import { HomePage } from "./components/HomePage";
+import { useTranslation } from "react-i18next";
 
 export type Page = "Home" | "Products" | "Categories";
 
 function App() {
+	const { t } = useTranslation();
 	const queryClient = new QueryClient();
 	const [currentPage, setCurrentPage] = useState<Page>("Home");
 
@@ -30,6 +32,7 @@ function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Layout currentPage={currentPage} onPageChange={handlePageChange}>
+				{t("test")}
 				{renderPageContent()}
 			</Layout>
 		</QueryClientProvider>
