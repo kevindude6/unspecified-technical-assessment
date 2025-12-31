@@ -7,13 +7,21 @@ import { useProducts } from "../api/product-hooks";
 
 export function ProductPage() {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [_sortBy, setSortBy] = useState("name");
+	const [sortBy, setSortBy] = useState<
+		| "id"
+		| "title"
+		| "price"
+		| "stock"
+		| "brand"
+		| "createdAt"
+		| "updatedAt"
+		| "categoryName"
+	>("title");
+	const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 	const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-	// For now, using sample data until backend is connected
-	// TODO: Replace with actual API calls when backend is ready
 	const {
 		data: productsData,
 		isLoading,
@@ -22,6 +30,8 @@ export function ProductPage() {
 		search: searchTerm,
 		categoryId,
 		page: currentPage,
+		sortBy,
+		sortOrder,
 	});
 
 	const handleSearch = (term: string) => {
@@ -29,8 +39,8 @@ export function ProductPage() {
 		setCurrentPage(1); // Reset to first page when searching
 	};
 
-	const handleSort = (sortBy: string) => {
-		setSortBy(sortBy);
+	const handleSort = (newSortBy: string) => {
+		setSortBy(newSortBy as any);
 	};
 
 	const handleCategoryFilter = (categoryId: number | undefined) => {

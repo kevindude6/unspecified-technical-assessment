@@ -2,6 +2,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { CategorySelect } from "./CategorySelect";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "./ui/select";
 
 interface ProductFilterProps {
 	onSearch: (searchTerm: string) => void;
@@ -15,7 +22,7 @@ export function ProductFilter({
 	onCategoryFilter,
 }: ProductFilterProps) {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [sortBy, setSortBy] = useState("name");
+	const [sortBy, setSortBy] = useState("title");
 	const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
 
 	const handleSort = (newSortBy: string) => {
@@ -49,31 +56,21 @@ export function ProductFilter({
 				/>
 			</div>
 
-			{false && (
-				<div className="flex flex-wrap gap-2">
-					<Button
-						variant={sortBy === "name" ? "default" : "outline"}
-						onClick={() => handleSort("name")}
-						size="sm"
-					>
-						Sort by Name
-					</Button>
-					<Button
-						variant={sortBy === "price" ? "default" : "outline"}
-						onClick={() => handleSort("price")}
-						size="sm"
-					>
-						Sort by Price
-					</Button>
-					<Button
-						variant={sortBy === "date" ? "default" : "outline"}
-						onClick={() => handleSort("date")}
-						size="sm"
-					>
-						Sort by Date
-					</Button>
-				</div>
-			)}
+			<div className="flex flex-wrap gap-2">
+				<Select value={sortBy} onValueChange={handleSort}>
+					<SelectTrigger className="w-[200px]">
+						<SelectValue placeholder="Sort by" />
+					</SelectTrigger>
+					<SelectContent>
+						<SelectItem value="title">Sort by Name</SelectItem>
+						<SelectItem value="price">Sort by Price</SelectItem>
+						<SelectItem value="createdAt">Sort by Date</SelectItem>
+						<SelectItem value="stock">Sort by Stock</SelectItem>
+						<SelectItem value="brand">Sort by Brand</SelectItem>
+						<SelectItem value="categoryName">Sort by Category</SelectItem>
+					</SelectContent>
+				</Select>
+			</div>
 		</div>
 	);
 }
