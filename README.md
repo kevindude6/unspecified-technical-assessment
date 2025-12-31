@@ -1,3 +1,4 @@
+**THIS IS A TECHNICAL ASSESSMENT, NOT A REAL APPLICATION**
 ## Getting Started
 ### Summary
 This is a simple application to allow users to manage product stock, presumably for some kind of store. It consists of a web based UI, a Nodejs API server, and a Postgres DB.
@@ -9,12 +10,29 @@ This is a simple application to allow users to manage product stock, presumably 
 - docker compose (Included in docker desktop)
 
 ### Run Procedure
+This procedure will build the docker image and run it locally, along with a postgres instance.
 1. Clone repo
-2. Cd to /backend
-2. Run "docker compose up -d"
-3. Run "pnpm run db:dev:migrate"
-4. Run "pnpm run seed"
-5. Access localhost:3000 in browser
+2. Navigate to /backend
+3. Create a ".env.dev" file with the following content:
+```
+DATABASE_URL="postgresql://app_user:app_password@localhost:5432/app_dev?schema=public"
+NODE_ENV="dev"
+```
+_In a real application, this would be secret, so I have excluded it from the repo_
+
+4. Run "docker compose up -d"
+5. Run "pnpm run db:dev:migrate"
+6. Run "pnpm run seed"
+7. Access localhost:3000 in browser
+
+### Testing
+Testing requires a local postgres instance to work with, so we must spin that up.
+1. Navigate to /backend
+2. "pnpm run db:test:up"
+3. "pnpm run db:test:migrate"
+4. "pnpm run test"
+
+This isn't great DX, but it is acceptable given time constraints.
 
 ## Functionality
 Users can
@@ -71,4 +89,27 @@ For formatting, I generally use Prettier, but I wanted to try Biome due to its l
 This was my first time using Biome, and overall it was quite good. However, the official VS code extension does not work in a monorepo workspace, so I had to install an unofficial one. A bit annoying, but not insurmountable.
 
 
+## Missing Features / Controversial Choices
+### Authentication
+There is no authentication / login, this is surely needed if it were a real product. Assuming no specific requirements, I would use betterauth. Authentication is not something most people should implement on their own, as there are many pitfalls to avoid. Using an established package is a lot safer.
 
+### Testing
+There are no UI tests. This is mainly due to time constraints. UI tests tend to be quite time consuming to create and maintain, and this is a short technical assessment. So I have chosen to exclude them and focus on functionality.
+
+The API side tests are essentially integration tests. There is basically no special business logic going on, so in my opinion no point in unit tests.
+
+### API Structure
+All logic is in the route files, and that isn't _the best_ practice. Larger applications should generally implement some separation of concerns to keep the code maintainable (and testable) but this is a small and fast project without any special logic. In this specific case, I opted for a faster workflow.
+
+## Misc. Pointers
+- Docker-compose down -v will wipe the volumes
+- Current docker-compose dev file is persisted in a volume, but without a specific path. This would need to be changed in a real scenario
+
+## Meta Commentary
+This was a tough assessment. Not that the functionality is difficult, but the "plan to spend 60-90 minutes" confuses me. While there are "no extra points" for being faster or slower, the assessment also suggests treating it like a real project that will be onboarding other developers. That means, to me, laying a strong foundation and choosing the right tools for the job. I don't think that can be done in 90 minutes.
+
+I know there is a heavy AI emphasis, but even with A LOT of AI use it still took me at least four hours. I wouldn't feel comfortable submitting a 90 minute project, as it would have too many cut corners for my liking. 
+
+That's not to say this is perfect, _(by no means is this perfect)_ but I think I found a good balance of quality to time pressure.
+
+Anyway, this was good practice and a good full-stack refresher. I think it is easy to get locked into whatever technologies your day job uses, so it is nice to read up and try new things now and then.
