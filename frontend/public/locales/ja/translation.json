@@ -84,5 +84,11 @@
     "creating": "作成中...",
     "updateProduct": "製品を更新",
     "createProduct": "製品を作成"
+  },
+  "home": {
+    "welcome": "ようこそ！",
+    "howCanWeHelp": "どのようにお手伝いできますか？",
+    "browseProducts": "製品を閲覧",
+    "browseCategories": "カテゴリを閲覧"
   }
 }

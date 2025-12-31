@@ -84,5 +84,11 @@
     "creating": "Creating...",
     "updateProduct": "Update Product",
     "createProduct": "Create Product"
+  },
+  "home": {
+    "welcome": "Welcome!",
+    "howCanWeHelp": "How can we help?",
+    "browseProducts": "Browse Products",
+    "browseCategories": "Browse Categories"
   }
 }
