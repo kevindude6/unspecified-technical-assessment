@@ -100,7 +100,7 @@ There is no authentication / login, this is surely needed if it were a real prod
 ### Testing
 There are no UI tests. This is mainly due to time constraints. UI tests tend to be quite time-consuming to create and maintain, and this is a short technical assessment. So I have chosen to exclude them and focus on functionality.
 
-The API-side tests are essentially integration tests. There is basically no special business logic going on, so in my opinion no point in unit tests.
+The API-side tests are essentially integration tests. There is basically no special business logic going on, so in my opinion, in this specific case, there is no point in unit tests.
 
 ### API Structure
 All logic is in the route files, and that isn't _the best_ practice. Larger applications should generally implement some separation of concerns to keep the code maintainable (and testable) but this is a small and fast project without any special logic. In this specific case, I opted for a faster workflow.
