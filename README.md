@@ -22,11 +22,16 @@ This procedure will build the Docker image and run it locally, along with a Post
    ```
    _In a real application, this would be secret, so I have excluded it from the repo_
 4. Run `pnpm install`
-5. Run `pnpm prisma generate`
+5. Run `pnpm prisma generate` (the migrate and seed script rely on this)
 6. Run `docker compose up -d`
 7. Run `pnpm run db:dev:migrate`
 8. Run `pnpm run seed`
 9. Access `localhost:3000` in browser
+
+### CI Pipeline
+Didn't have time to add CI/CD, but building the dockerfile is self contained, should be able to just do a simple docker build step.
+
+Migration and seeding though, require additional steps. They would have to be configured separately. That's a big topic, so when running locally the user has to migrate and seed manually.
 
 ### Testing
 Testing requires a local PostgreSQL instance to work with, so we must spin that up.
