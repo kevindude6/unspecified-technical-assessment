@@ -9,7 +9,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "./ui/select";
-import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { ArrowUp, ArrowDown } from "lucide-react";
 import type { SortTerm, SortOrder } from "./ProductPage";
 
 interface ProductFilterProps {
