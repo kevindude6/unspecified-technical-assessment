@@ -7,6 +7,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "./ui/select";
+import { useTranslation } from "react-i18next";
 
 interface CategorySelectProps {
 	value?: number;
@@ -29,6 +30,7 @@ export function CategorySelect({
 }: CategorySelectProps) {
 	const [_isOpen, setIsOpen] = useState(false);
 	const { data, isLoading, error } = useCategories();
+	const { t } = useTranslation();
 
 	const handleSelect = (categoryId: string) => {
 		const id = categoryId === "all" ? undefined : parseInt(categoryId, 10);
@@ -62,14 +64,18 @@ export function CategorySelect({
 				>
 					<SelectValue placeholder={placeholder}>
 						{isLoading
-							? "Loading categories..."
+							? t("categorySelect.loadingCategories")
 							: selectedCategory
 								? selectedCategory.name
 								: placeholder}
 					</SelectValue>
 				</SelectTrigger>
 				<SelectContent>
-					{allowAll && <SelectItem value="all">All Categories</SelectItem>}
+					{allowAll && (
+						<SelectItem value="all">
+							{t("categorySelect.allCategories")}
+						</SelectItem>
+					)}
 					{sortedCategories.map((category) => (
 						<SelectItem key={category.id} value={category.id.toString()}>
 							{category.name}
@@ -79,7 +85,7 @@ export function CategorySelect({
 			</Select>
 			{error && (
 				<p className="mt-2 text-sm text-red-600">
-					Failed to load categories. Please try again.
+					{t("categorySelect.failedToLoadCategories")}
 				</p>
 			)}
 		</div>

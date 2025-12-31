@@ -47,5 +47,10 @@
   "confirmation": {
     "deleteProduct": "Are you sure you want to delete this product?",
     "deleteCategory": "Are you sure you want to delete this category?"
+  },
+  "categorySelect": {
+    "loadingCategories": "Loading categories...",
+    "allCategories": "All Categories",
+    "failedToLoadCategories": "Failed to load categories. Please try again."
   }
 }

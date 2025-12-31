@@ -47,5 +47,10 @@
   "confirmation": {
     "deleteProduct": "製品を削除してもよろしいですか？",
     "deleteCategory": "カテゴリを削除してもよろしいですか？"
+  },
+  "categorySelect": {
+    "loadingCategories": "カテゴリを読み込み中...",
+    "allCategories": "すべてのカテゴリ",
+    "failedToLoadCategories": "カテゴリの読み込みに失敗しました。再度お試しください。"
   }
 }
