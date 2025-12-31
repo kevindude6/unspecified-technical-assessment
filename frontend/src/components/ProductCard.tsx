@@ -24,13 +24,17 @@ export function ProductCard({ product }: ProductCardProps) {
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
 	const handleDelete = () => {
-		if (window.confirm(`Are you sure you want to delete "${product.title}"?`)) {
+		if (
+			window.confirm(t("confirmation.deleteProduct", { title: product.title }))
+		) {
 			deleteProduct(product.id, {
 				onSuccess: () => {
-					toast.success("Product deleted successfully");
+					toast.success(t("productEditModal.successDelete"));
 				},
 				onError: (error) => {
-					toast.error(`Failed to delete product: ${error.message}`);
+					toast.error(
+						t("productEditModal.errorDelete", { message: error.message }),
+					);
 				},
 			});
 		}

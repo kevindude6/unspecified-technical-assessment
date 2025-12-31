@@ -45,7 +45,7 @@
     "totalProducts": "総製品数"
   },
   "confirmation": {
-    "deleteProduct": "製品を削除してもよろしいですか？",
+    "deleteProduct": "\"{{title}}\"を削除してもよろしいですか？",
     "deleteCategory": "カテゴリを削除してもよろしいですか？"
   },
   "categorySelect": {
@@ -62,5 +62,27 @@
     "ascending": "昇順",
     "descending": "降順",
     "categoryPlaceholder": "カテゴリを選択"
+  },
+  "productEditModal": {
+    "successUpdate": "製品が正常に更新されました",
+    "errorUpdate": "製品の更新に失敗しました: {{message}}",
+    "successCreate": "製品が正常に作成されました",
+    "errorCreate": "製品の作成に失敗しました: {{message}}",
+    "successDelete": "製品が正常に削除されました",
+    "errorDelete": "製品の削除に失敗しました: {{message}}",
+    "closeModal": "モーダルを閉じる",
+    "editProduct": "製品を編集",
+    "addProduct": "製品を追加",
+    "placeholderTitle": "製品タイトル",
+    "placeholderBrand": "製品ブランド",
+    "placeholderSku": "製品SKU",
+    "priceLabel": "価格 ($)",
+    "weightLabel": "重量 (kg)",
+    "placeholderCategory": "カテゴリを選択",
+    "placeholderDescription": "製品の説明",
+    "updating": "更新中...",
+    "creating": "作成中...",
+    "updateProduct": "製品を更新",
+    "createProduct": "製品を作成"
   }
 }

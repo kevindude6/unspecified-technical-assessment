@@ -45,7 +45,7 @@
     "totalProducts": "Total products"
   },
   "confirmation": {
-    "deleteProduct": "Are you sure you want to delete this product?",
+    "deleteProduct": "Are you sure you want to delete \"{{title}}\"?",
     "deleteCategory": "Are you sure you want to delete this category?"
   },
   "categorySelect": {
@@ -62,5 +62,27 @@
     "ascending": "Ascending",
     "descending": "Descending",
     "categoryPlaceholder": "Select a category"
+  },
+  "productEditModal": {
+    "successUpdate": "Product updated successfully",
+    "errorUpdate": "Failed to update product: {{message}}",
+    "successCreate": "Product created successfully",
+    "errorCreate": "Failed to create product: {{message}}",
+    "successDelete": "Product deleted successfully",
+    "errorDelete": "Failed to delete product: {{message}}",
+    "closeModal": "Close modal",
+    "editProduct": "Edit Product",
+    "addProduct": "Add Product",
+    "placeholderTitle": "Product title",
+    "placeholderBrand": "Product brand",
+    "placeholderSku": "Product SKU",
+    "priceLabel": "Price ($)",
+    "weightLabel": "Weight (kg)",
+    "placeholderCategory": "Select a category",
+    "placeholderDescription": "Product description",
+    "updating": "Updating...",
+    "creating": "Creating...",
+    "updateProduct": "Update Product",
+    "createProduct": "Create Product"
   }
 }

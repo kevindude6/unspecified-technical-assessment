@@ -10,6 +10,7 @@ import { useUpdateProduct } from "@/api/product-hooks";
 import { useCreateProduct } from "@/api/product-hooks";
 import { toast } from "sonner";
 import type { Product } from "@/lib/models/product";
+import { useTranslation } from "react-i18next";
 
 interface ProductEditModalProps {
 	product?: Product;
@@ -45,6 +46,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 	const { mutate: createProduct, isPending: isCreating } = useCreateProduct();
 	const isEditing = !!product;
 	const isPending = isUpdating || isCreating;
+	const { t } = useTranslation();
 
 	const {
 		register,
@@ -77,22 +79,26 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 				},
 				{
 					onSuccess: () => {
-						toast.success("Product updated successfully");
+						toast.success(t("productEditModal.successUpdate"));
 						onClose();
 					},
 					onError: (error) => {
-						toast.error(`Failed to update product: ${error.message}`);
+						toast.error(
+							t("productEditModal.errorUpdate", { message: error.message }),
+						);
 					},
 				},
 			);
 		} else {
 			createProduct(data, {
 				onSuccess: () => {
-					toast.success("Product created successfully");
+					toast.success(t("productEditModal.successCreate"));
 					onClose();
 				},
 				onError: (error) => {
-					toast.error(`Failed to create product: ${error.message}`);
+					toast.error(
+						t("productEditModal.errorCreate", { message: error.message }),
+					);
 				},
 			});
 		}
@@ -114,7 +120,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 				}`}
 				onClick={handleClose}
 				onKeyUp={(e) => e.key === "Escape" && handleClose()}
-				aria-label="Close modal"
+				aria-label={t("productEditModal.closeModal")}
 			/>
 
 			{/* Modal */}
@@ -126,7 +132,9 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 				{/* Modal Header */}
 				<div className="flex items-center justify-between border-b px-6 py-4">
 					<h2 className="text-lg font-semibold">
-						{isEditing ? "Edit Product" : "Add Product"}
+						{isEditing
+							? t("productEditModal.editProduct")
+							: t("productEditModal.addProduct")}
 					</h2>
 					<Button
 						variant="ghost"
@@ -143,12 +151,12 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 					<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 						<div className="space-y-2">
 							<label htmlFor="title" className="text-sm font-medium">
-								Title
+								{t("product.title")}
 							</label>
 							<Input
 								id="title"
 								{...register("title")}
-								placeholder="Product title"
+								placeholder={t("productEditModal.placeholderTitle")}
 							/>
 							{errors.title && (
 								<p className="text-sm text-red-600">{errors.title.message}</p>
@@ -157,12 +165,12 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 
 						<div className="space-y-2">
 							<label htmlFor="brand" className="text-sm font-medium">
-								Brand
+								{t("product.brand")}
 							</label>
 							<Input
 								id="brand"
 								{...register("brand")}
-								placeholder="Product brand"
+								placeholder={t("productEditModal.placeholderBrand")}
 							/>
 							{errors.brand && (
 								<p className="text-sm text-red-600">{errors.brand.message}</p>
@@ -171,9 +179,13 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 
 						<div className="space-y-2">
 							<label htmlFor="sku" className="text-sm font-medium">
-								SKU
+								{t("product.sku")}
 							</label>
-							<Input id="sku" {...register("sku")} placeholder="Product SKU" />
+							<Input
+								id="sku"
+								{...register("sku")}
+								placeholder={t("productEditModal.placeholderSku")}
+							/>
 							{errors.sku && (
 								<p className="text-sm text-red-600">{errors.sku.message}</p>
 							)}
@@ -181,7 +193,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 
 						<div className="space-y-2">
 							<label htmlFor="price" className="text-sm font-medium">
-								Price ($)
+								{t("productEditModal.priceLabel")}
 							</label>
 							<Input
 								id="price"
@@ -197,7 +209,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 
 						<div className="space-y-2">
 							<label htmlFor="stock" className="text-sm font-medium">
-								Stock
+								{t("product.stock")}
 							</label>
 							<Input
 								id="stock"
@@ -212,7 +224,7 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 
 						<div className="space-y-2">
 							<label htmlFor="weight" className="text-sm font-medium">
-								Weight (kg)
+								{t("productEditModal.weightLabel")}
 							</label>
 							<Input
 								id="weight"
@@ -229,12 +241,12 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 
 					<div className="space-y-2">
 						<label htmlFor="category" className="text-sm font-medium">
-							Category
+							{t("product.category")}
 						</label>
 						<CategorySelect
 							value={watch("categoryId")}
 							onChange={(categoryId) => setValue("categoryId", categoryId || 0)}
-							placeholder="Select a category"
+							placeholder={t("productEditModal.placeholderCategory")}
 							className="w-full"
 							allowAll={false}
 						/>
@@ -247,12 +259,12 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 
 					<div className="space-y-2">
 						<label htmlFor="description" className="text-sm font-medium">
-							Description
+							{t("product.description")}
 						</label>
 						<textarea
 							id="description"
 							{...register("description")}
-							placeholder="Product description"
+							placeholder={t("productEditModal.placeholderDescription")}
 							className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-colors file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:border-ring focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
 							rows={4}
 						/>
@@ -271,16 +283,16 @@ export function ProductEditModal({ product, onClose }: ProductEditModalProps) {
 							onClick={handleClose}
 							disabled={isPending}
 						>
-							Cancel
+							{t("actions.cancel")}
 						</Button>
 						<Button type="submit" disabled={isPending}>
 							{isPending
 								? isEditing
-									? "Updating..."
-									: "Creating..."
+									? t("productEditModal.updating")
+									: t("productEditModal.creating")
 								: isEditing
-									? "Update Product"
-									: "Create Product"}
+									? t("productEditModal.updateProduct")
+									: t("productEditModal.createProduct")}
 						</Button>
 					</div>
 				</form>
