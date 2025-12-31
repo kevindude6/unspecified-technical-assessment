@@ -105,6 +105,20 @@ The API-side tests are essentially integration tests. There is basically no spec
 ### API Structure
 All logic is in the route files, and that isn't _the best_ practice. Larger applications should generally implement some separation of concerns to keep the code maintainable (and testable) but this is a small and fast project without any special logic. In this specific case, I opted for a faster workflow.
 
+### API Responses
+I like to wrap my responses in objects. 
+```json
+{
+  "success": boolean,
+  "data": {},
+  "error"?: string,
+  "message"?: string
+  }
+```
+However, this is technically redundant. We already have http status codes, so we don't need the success boolean. I just like to do it because I think it makes the frontend a little simpler.
+
+Further, and likely more controversial, I prefer to always return collections. Never single data. Even if the method only returns one element, wrap it in a list. Really, I just like working that way. It has pros and cons depending on use case, but nothing deal-breaking. 
+
 ## Miscellaneous Pointers
 - `docker-compose down -v` will wipe the volumes
 - Current docker-compose dev file is persisted in a volume, but without a specific path. This would need to be changed in a real scenario
@@ -117,3 +131,5 @@ I know there is a heavy AI emphasis, but even with A LOT of AI use it still took
 That's not to say this is perfect, _(by no means is this perfect)_ but I think I found a good balance of quality to time pressure.
 
 Anyway, this was good practice and a good full-stack refresher, so I didn't mind spending the time on it. I think it is easy to get locked into whatever technologies your day job uses, so it is nice to read up and try new things now and then.
+
+Also, I cut off the screen recording around four hours in, because I had to cook dinner. 
