@@ -3,6 +3,8 @@
 ## Summary
 This is a simple application to allow users to manage product stock, presumably for some kind of store. It consists of a web-based UI, a Node.js API server, and a PostgreSQL database.
 
+**[Live link (maybe buggy)](http://37.114.41.171:31234)**
+
 ## Getting Started
 ### Prerequisites
 - Node v24
